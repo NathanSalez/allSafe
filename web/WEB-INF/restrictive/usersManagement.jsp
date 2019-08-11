@@ -70,6 +70,7 @@ TODO : users can delete other user
                     <form>
                         <div class="form-group">
                             <label for="pseudo" class="col-form-label" >Pseudo</label>
+                            <!-- TODO : insert selected pseudo in modal's input -->
                             <input type="text" class="form-control allsafe-input" disabled id="pseudo">
                         </div>
                         <div class="form-group">
