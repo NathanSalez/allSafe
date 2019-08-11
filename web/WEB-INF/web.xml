@@ -6,6 +6,7 @@
 <!-- TODO : use Maven for dependencies -->
 <!-- TODO : admin users can import new users to register them -->
 <!-- TODO : protect website from CSRF -->
+<!-- TODO : deploy website on heroku after maven task -->
     <!-- VIEW STRUCTURE -->
     <jsp-config>
         <jsp-property-group>

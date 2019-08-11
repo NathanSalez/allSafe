@@ -2,7 +2,6 @@
 TODO : the data table shows 20 users per part.
 TODO : users can change part.
 TODO : create new type of tag, sees https://www.roseindia.net/jsp/body-tag-support-example.shtml and https://pastebin.com/cGxeF1qA for rights
-TODO : users can update other user status
 TODO : users can delete other user
  --%>
 <h1>Users Table</h1>
@@ -28,12 +27,12 @@ TODO : users can delete other user
             <c:forEach items="${requestScope.users}" var="user">
                 <tr class="<c:if test="${user.logged == true}">table-success</c:if>"  >
                     <td>${user.id}</td>
-                    <td>${user.pseudo}</td>
+                    <td class="allsafe-pseudo">${user.pseudo}</td>
                     <td>***********</td>
                     <td>${user.role}</td>
                     <td>${user.registerDate}</td>
                     <c:if test="${sessionScope.userSession.role == 'ADMIN' || ( sessionScope.userSession.role == 'MODERATOR' && user.role != 'ADMIN' )}">
-                        <td><input type="button" class="btn-success" value="Update" data-toggle="modal" data-target="#updateModal" /></td>
+                        <td><input type="button" class="btn-success allsafe-update" value="Update" data-toggle="modal" data-target="#updateModal" /></td>
                     </c:if>
                     <c:if test="${sessionScope.userSession.role == 'ADMIN'}">
                         <td><input type="button" class="btn-danger" value="Delete" /></td>
@@ -70,12 +69,11 @@ TODO : users can delete other user
                     <form>
                         <div class="form-group">
                             <label for="pseudo" class="col-form-label" >Pseudo</label>
-                            <!-- TODO : insert selected pseudo in modal's input -->
-                            <input type="text" class="form-control allsafe-input" disabled id="pseudo">
+                            <input type="text" class="form-control text-center allsafe-input" disabled id="pseudo">
                         </div>
                         <div class="form-group">
                             <label for="role-select" class="col-form-label">Role</label>
-                            <select id="role-select" class="custom-select">
+                            <select id="role-select" class="custom-select text-center">
                                 <c:forEach items="${requestScope.roles}" var="role">
                                 <option value="${role}">${role.description}</option>
                                 </c:forEach>
@@ -85,7 +83,7 @@ TODO : users can delete other user
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="allsafe-update-user" data-dismiss="modal">Save changes</button>
                 </div>
             </div>
         </div>
