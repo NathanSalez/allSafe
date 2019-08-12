@@ -38,7 +38,6 @@ public class UsersAjaxController extends HttpServlet {
         Long loggedUsers = userManagementService.countLoggedUsers();
         response.setContentType("application/json");
         Map<String,Object> mapResponse = new HashMap<>();
-        String text = "{\"feedback\":";
         if( userManagementService.getFeedback() )
         {
             mapResponse.put("feedback","ok");
