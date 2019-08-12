@@ -1,7 +1,6 @@
 <%--
 TODO : the data table shows 20 users per part.
 TODO : users can change part.
-TODO : create new type of tag, sees https://www.roseindia.net/jsp/body-tag-support-example.shtml and https://pastebin.com/cGxeF1qA for rights
 TODO : users can delete other user
  --%>
 <h1>Users Table</h1>
@@ -14,12 +13,12 @@ TODO : users can delete other user
                 <th>Password</th>
                 <th>Role</th>
                 <th>Register date</th>
-                <c:if test="${sessionScope.userSession.role == 'ADMIN' || sessionScope.userSession.role == 'MODERATOR' }">
+                <as:hasRight executorRole="${sessionScope.userSession.role}" action="update">
                     <th>Update</th>
-                    <c:if test="${sessionScope.userSession.role == 'ADMIN'}">
+                </as:hasRight>
+                <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete">
                     <th>Delete</th>
-                    </c:if>
-                </c:if>
+                </as:hasRight>
             </tr>
         </thead>
         <tbody>
@@ -31,12 +30,12 @@ TODO : users can delete other user
                     <td>***********</td>
                     <td>${user.role}</td>
                     <td>${user.registerDate}</td>
-                    <c:if test="${sessionScope.userSession.role == 'ADMIN' || ( sessionScope.userSession.role == 'MODERATOR' && user.role != 'ADMIN' )}">
+                    <as:hasRight executorRole="${sessionScope.userSession.role}" action="update" affectedRole="${user.role}">
                         <td><input type="button" class="btn-success allsafe-update" value="Update" data-toggle="modal" data-target="#updateModal" /></td>
-                    </c:if>
-                    <c:if test="${sessionScope.userSession.role == 'ADMIN'}">
+                    </as:hasRight>
+                    <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete" affectedRole="${user.role}">
                         <td><input type="button" class="btn-danger" value="Delete" /></td>
-                    </c:if>
+                    </as:hasRight>
                 </tr>
             </c:forEach>
         </c:if>
@@ -48,12 +47,12 @@ TODO : users can delete other user
                 <td></td>
                 <td><input class="form-control" type="text" placeholder="Role"/></td>
                 <td><input class="form-control" type="text" placeholder="Register date"/></td>
-                <c:if test="${sessionScope.userSession.role == 'ADMIN' || sessionScope.userSession.role == 'MODERATOR' }">
+                <as:hasRight executorRole="${sessionScope.userSession.role}" action="update">
                     <td></td>
-                    <c:if test="${sessionScope.userSession.role == 'ADMIN'}">
-                        <td></td>
-                    </c:if>
-                </c:if>
+                </as:hasRight>
+                <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete">
+                    <td></td>
+                </as:hasRight>
             </tr>
         </tfoot>
     </table>
