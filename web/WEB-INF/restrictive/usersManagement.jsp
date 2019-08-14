@@ -13,6 +13,7 @@ TODO : users can delete other user
                 <th>Password</th>
                 <th>Role</th>
                 <th>Register date</th>
+                <th>State</th>
                 <as:hasRight executorRole="${sessionScope.userSession.role}" action="update">
                     <th>Update</th>
                 </as:hasRight>
@@ -24,12 +25,22 @@ TODO : users can delete other user
         <tbody>
         <c:if test="${feedback!='ko'}">
             <c:forEach items="${requestScope.users}" var="user">
-                <tr class="<c:if test="${user.logged == true}">table-success</c:if>"  >
+                <tr>
                     <td>${user.id}</td>
                     <td class="allsafe-pseudo">${user.pseudo}</td>
                     <td>***********</td>
                     <td>${user.role}</td>
                     <td>${user.registerDate}</td>
+                    <td><span class="badge
+                        <c:choose>
+                            <c:when test="${user.logged}">
+                                badge-primary">Logged</span>
+                            </c:when>
+                            <c:otherwise>
+                                badge-secondary">Disconnected</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                     <as:hasRight executorRole="${sessionScope.userSession.role}" action="update" affectedRole="${user.role}">
                         <td><input type="button" class="btn-success allsafe-update" value="Update" data-toggle="modal" data-target="#updateModal" /></td>
                     </as:hasRight>
@@ -47,6 +58,7 @@ TODO : users can delete other user
                 <td></td>
                 <td><input class="form-control" type="text" placeholder="Role"/></td>
                 <td><input class="form-control" type="text" placeholder="Register date"/></td>
+                <td></td>
                 <as:hasRight executorRole="${sessionScope.userSession.role}" action="update">
                     <td></td>
                 </as:hasRight>

@@ -13,7 +13,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class RightsTag extends BodyTagSupport {
 
-    private RoleDao roleDao;
+    private static RoleDao roleDao;
 
     private Role executorRole;
 
@@ -39,9 +39,14 @@ public class RightsTag extends BodyTagSupport {
         this.newRole = Role.getRole(newRole);
     }
 
+    private void getInstanceRoleDao()
+    {
+        if( roleDao == null )
+            roleDao = ( (DAOFactory) pageContext.getServletContext().getAttribute(InitialisationDaoFactory.ATT_DAO_FACTORY) ).getRoleDao();
+    }
     @Override
     public int doStartTag() throws JspException {
-        roleDao = ( (DAOFactory) pageContext.getServletContext().getAttribute(InitialisationDaoFactory.ATT_DAO_FACTORY) ).getRoleDao();
+        getInstanceRoleDao();
         if( roleDao.hasTheRightTo(executorRole,action,affectedRole,newRole))
         {
             return EVAL_BODY_INCLUDE;
