@@ -1,7 +1,8 @@
 <%--
-TODO : the data table shows 20 users per part.
-TODO : users can change part.
+later : the data table shows 20 users per part.
+later : users can change part.
 TODO : users can delete other user
+TODO : users can search user by their name, role, register date, state
  --%>
 <h1>Users Table</h1>
 <div id="usersTable">
@@ -70,6 +71,7 @@ TODO : users can delete other user
     </table>
 
     <!-- Modal -->
+    <!-- TODO : set allowed roles for modal's update user -->
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
