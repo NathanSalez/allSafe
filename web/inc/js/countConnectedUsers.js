@@ -21,7 +21,7 @@ var getNbLoggedUsers = function()
                 }
                 else
                 {
-                    alert("The server is not able to count connected users.");
+                    alert("The server is not able to count connected users. Please check the logs.");
                     console.log(response);
                 }
             }
@@ -30,7 +30,7 @@ var getNbLoggedUsers = function()
 };
 
 $(document).ready(function() {
-    urlCountUsers = $("#urlCountUsers").val();
+    urlCountUsers = $("#urlUsers").val() + "?action=countNbUsers";
     displayBlock = $("#nbConnectedUsers");
 
     setInterval(

@@ -1,6 +1,5 @@
 package filter;
 
-import controller.LoginController;
 import utils.SessionUtils;
 
 import javax.servlet.*;

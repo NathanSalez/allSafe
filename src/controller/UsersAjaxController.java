@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/users/countLoggedUsers")
+@WebServlet("/users/")
 public class UsersAjaxController extends HttpServlet {
 
     @Override
@@ -35,6 +35,22 @@ public class UsersAjaxController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        switch(action)
+        {
+            case "countNbUsers" :
+                doGetSearchConnectedUsers(request,response);
+                break;
+
+            case "searchUsers" :
+                break;
+
+            default:
+                doMethodError(request,response);
+        }
+    }
+
+    private void doGetSearchConnectedUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long loggedUsers = userManagementService.countLoggedUsers();
         response.setContentType("application/json");
         Map<String,Object> mapResponse = new HashMap<>();
@@ -48,6 +64,14 @@ public class UsersAjaxController extends HttpServlet {
             mapResponse.put("feedback","ko");
             mapResponse.put("error", userManagementService.getErrors());
         }
+        String jsonResponse = new Gson().toJson(mapResponse);
+        response.getWriter().write(jsonResponse);
+    }
+
+    private void doMethodError(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Map<String,Object> mapResponse = new HashMap<>();
+        mapResponse.put("feedback","ko");
+        mapResponse.put("error", "Action parameter not found.");
         String jsonResponse = new Gson().toJson(mapResponse);
         response.getWriter().write(jsonResponse);
     }
