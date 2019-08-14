@@ -4,6 +4,9 @@ import dao.DAOFactory;
 import dao.RoleDao;
 import model.Role;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoleDaoTest {
@@ -30,5 +33,14 @@ class RoleDaoTest {
     void findAll() {
         Role[] allRoles = Role.values();
         assertArrayEquals(allRoles, roleDao.findAll());
+    }
+
+    @org.junit.jupiter.api.Test
+    void getNewPossibleRoles() {
+        ArrayList<Role> expectedRoles = new ArrayList<>(2);
+        expectedRoles.add( Role.SIMPLE);
+        expectedRoles.add(Role.ADMIN);
+        Collection<Role> obtainedRoles = roleDao.getNewPossibleRoles(Role.ADMIN,Role.MODERATOR);
+        assertArrayEquals(expectedRoles.toArray(),obtainedRoles.toArray());
     }
 }

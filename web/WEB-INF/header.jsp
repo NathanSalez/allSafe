@@ -18,6 +18,7 @@
 <body>
 <input type="hidden" value="<c:url value="/disconnect" />" id="urlDisconnect" />
 <input type="hidden" value="<c:url value="/users/" />" id="urlUsers"/>
+<input type="hidden" value="<c:url value="/roles/" />" id="urlRoles"/>
 
 <%-- TODO : make a responsive navbar --%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">

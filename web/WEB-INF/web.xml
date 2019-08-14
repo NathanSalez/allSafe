@@ -8,6 +8,7 @@
 <!-- TODO : protect website from CSRF -->
 <!-- TODO : deploy website on heroku after maven task -->
     <jsp-config>
+        <!-- TODO : for modals (update/delete an user), use .jsp without footer and header include -->
         <!-- VIEW STRUCTURE -->
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

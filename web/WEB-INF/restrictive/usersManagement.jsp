@@ -30,7 +30,7 @@ TODO : users can search user by their name, role, register date, state
                     <td>${user.id}</td>
                     <td class="allsafe-pseudo">${user.pseudo}</td>
                     <td>***********</td>
-                    <td>${user.role}</td>
+                    <td class="allsafe-role">${user.role}</td>
                     <td>${user.registerDate}</td>
                     <td><span class="badge
                         <c:choose>
@@ -71,7 +71,6 @@ TODO : users can search user by their name, role, register date, state
     </table>
 
     <!-- Modal -->
-    <!-- TODO : set allowed roles for modal's update user -->
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -87,9 +86,9 @@ TODO : users can search user by their name, role, register date, state
                         <div class="form-group">
                             <label for="role-select" class="col-form-label">Role</label>
                             <select id="role-select" class="custom-select text-center">
-                                <c:forEach items="${requestScope.roles}" var="role">
+                                <%--<c:forEach items="${requestScope.roles}" var="role">
                                 <option value="${role}">${role.description}</option>
-                                </c:forEach>
+                                </c:forEach>--%>
                             </select>
                         </div>
                     </form>
