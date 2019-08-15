@@ -5,11 +5,10 @@ import com.google.gson.GsonBuilder;
 import config.InitialisationDaoFactory;
 import dao.DAOFactory;
 import dao.RoleDao;
-import dao.UserDao;
 import json.RoleSerializer;
 import model.Role;
 import model.User;
-import service.UserManagementService;
+import service.RoleService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,15 +26,14 @@ import static utils.SessionUtils.USER_SESSION_FIELD;
 @WebServlet("/roles/")
 public class RoleController extends HttpServlet {
 
-    private UserManagementService userManagementService;
+    private RoleService roleService;
 
     @Override
     public void init() {
         DAOFactory daoFactory = (DAOFactory) getServletContext().getAttribute(InitialisationDaoFactory.ATT_DAO_FACTORY);
-        UserDao userDao =  daoFactory.getUserDao();
         RoleDao roleDao = daoFactory.getRoleDao();
 
-        userManagementService = new UserManagementService(userDao,roleDao);
+        roleService = new RoleService(roleDao);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -74,7 +72,7 @@ public class RoleController extends HttpServlet {
         }
         else
         {
-            Collection<Role> newPossibleRoles = userManagementService.getNewPossibleRoles(u.getRole(),request);
+            Collection<Role> newPossibleRoles = roleService.getNewPossibleRoles(u.getRole(),request);
             mapResponse.put("newPossibleRoles",newPossibleRoles);
             mapResponse.put("feedback","ok");
         }

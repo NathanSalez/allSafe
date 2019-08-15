@@ -3,7 +3,6 @@ package controller;
 import com.google.gson.Gson;
 import config.InitialisationDaoFactory;
 import dao.DAOFactory;
-import dao.RoleDao;
 import dao.UserDao;
 import service.UserManagementService;
 
@@ -19,16 +18,14 @@ import java.util.Map;
 @WebServlet("/users/")
 public class UsersAjaxController extends HttpServlet {
 
+    private UserManagementService userManagementService;
+
     @Override
     public void init() {
         DAOFactory daoFactory = (DAOFactory) getServletContext().getAttribute(InitialisationDaoFactory.ATT_DAO_FACTORY);
         UserDao userDao =  daoFactory.getUserDao();
-        RoleDao roleDao = daoFactory.getRoleDao();
-
-        userManagementService = new UserManagementService(userDao,roleDao);
+        userManagementService = new UserManagementService(userDao);
     }
-
-    private UserManagementService userManagementService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
