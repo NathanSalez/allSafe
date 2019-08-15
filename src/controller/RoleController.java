@@ -28,6 +28,8 @@ public class RoleController extends HttpServlet {
 
     private RoleService roleService;
 
+    private static final String NEW_POSSIBLE_ROLES_FIELD = "newPossibleRoles";
+
     @Override
     public void init() {
         DAOFactory daoFactory = (DAOFactory) getServletContext().getAttribute(InitialisationDaoFactory.ATT_DAO_FACTORY);
@@ -73,7 +75,7 @@ public class RoleController extends HttpServlet {
         else
         {
             Collection<Role> newPossibleRoles = roleService.getNewPossibleRoles(u.getRole(),request);
-            mapResponse.put("newPossibleRoles",newPossibleRoles);
+            mapResponse.put(NEW_POSSIBLE_ROLES_FIELD,newPossibleRoles);
             mapResponse.put("feedback","ok");
         }
         return gsonBuilder.create().toJson(mapResponse);

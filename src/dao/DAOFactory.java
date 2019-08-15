@@ -2,6 +2,8 @@ package dao;
 
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
+import dao.impl.jdbc.RoleJdbcDao;
+import dao.impl.jdbc.UserJdbcDao;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +19,7 @@ public class DAOFactory {
     private static final String PROPERTY_USER_NAME = "userName";
     private static final String PROPERTY_PASSWORD = "password";
 
-    private BoneCP connectionPool = null;
+    private BoneCP connectionPool;
 
     private DAOFactory( BoneCP connectionPool ) {
         this.connectionPool = connectionPool;
@@ -80,12 +82,11 @@ public class DAOFactory {
          * Enregistrement du pool créé dans une variable d'instance via un appel
          * au constructeur de DAOFactory
          */
-        DAOFactory instance = new DAOFactory( connectionPool );
-        return instance;
+        return new DAOFactory( connectionPool );
     }
 
     /* Méthode chargée de fournir une connexion à la base de données */
-    Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         return connectionPool.getConnection();
     }
 

@@ -1,5 +1,8 @@
-package dao;
+package dao.impl.jdbc;
 
+import dao.DAOException;
+import dao.DAOFactory;
+import dao.RoleDao;
 import model.Role;
 import utils.DaoUtils;
 
@@ -19,7 +22,7 @@ public class RoleJdbcDao extends JdbcDAO<Role> implements RoleDao {
 
     private static final String GET_POSSIBLE_ROLES_QUERY = "SELECT newRole from rights where executorRole = ? and affectedRole = ? and action='updateAs'";
 
-    RoleJdbcDao(DAOFactory daoFactory)
+    public RoleJdbcDao(DAOFactory daoFactory)
     {
         this.daoFactory = daoFactory;
         mapper = new RowMapper<Role>() {

@@ -1,4 +1,4 @@
-package dao;
+package dao.impl.jdbc;
 
 /**
  * @author Nathan Salez

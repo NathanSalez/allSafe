@@ -1,5 +1,8 @@
-package dao;
+package dao.impl.jdbc;
 
+import dao.DAOException;
+import dao.DAOFactory;
+import dao.UserDao;
 import model.Role;
 import model.User;
 import utils.DaoUtils;
@@ -32,7 +35,7 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
 
     private static final String DELETE_USER = "DELETE FROM users WHERE pseudo = ?";
 
-    UserJdbcDao(DAOFactory daoFactory) {
+    public UserJdbcDao(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
         mapper = new RowMapper<User>() {
             @Override
