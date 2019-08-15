@@ -36,23 +36,26 @@ public class UsersAjaxController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        response.setContentType("application/json");
+        String jsonResponse = "";
         switch(action)
         {
             case "countNbUsers" :
-                doGetSearchConnectedUsers(request,response);
+                jsonResponse = doGetSearchConnectedUsers();
                 break;
 
             case "searchUsers" :
                 break;
 
             default:
-                doMethodError(request,response);
+                jsonResponse = doMethodError();
         }
+        response.getWriter().write(jsonResponse);
     }
 
-    private void doGetSearchConnectedUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private String doGetSearchConnectedUsers()
+    {
         Long loggedUsers = userManagementService.countLoggedUsers();
-        response.setContentType("application/json");
         Map<String,Object> mapResponse = new HashMap<>();
         if( userManagementService.getFeedback() )
         {
@@ -64,15 +67,14 @@ public class UsersAjaxController extends HttpServlet {
             mapResponse.put("feedback","ko");
             mapResponse.put("error", userManagementService.getErrors());
         }
-        String jsonResponse = new Gson().toJson(mapResponse);
-        response.getWriter().write(jsonResponse);
+        return new Gson().toJson(mapResponse);
     }
 
-    private void doMethodError(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private String doMethodError()
+    {
         Map<String,Object> mapResponse = new HashMap<>();
         mapResponse.put("feedback","ko");
         mapResponse.put("error", "Action parameter not found.");
-        String jsonResponse = new Gson().toJson(mapResponse);
-        response.getWriter().write(jsonResponse);
+        return new Gson().toJson(mapResponse);
     }
 }

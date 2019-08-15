@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import config.InitialisationDaoFactory;
 import dao.DAOFactory;
@@ -43,20 +44,23 @@ public class RoleController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        String jsonResponse;
+        response.setContentType("application/json");
         switch(action)
         {
             case "getPossibleNewRoles" :
-                doGetPossibleNewRoles(request,response);
+                jsonResponse = doGetPossibleNewRoles(request);
                 break;
 
             default:
-                System.err.println("error");
+                jsonResponse = doMethodError();
 
         }
+        response.getWriter().write(jsonResponse);
     }
 
-    private void doGetPossibleNewRoles(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
+    private String doGetPossibleNewRoles(HttpServletRequest request)
+    {
         GsonBuilder gsonBuilder = new GsonBuilder();
         RoleSerializer roleSerializer = new RoleSerializer();
         gsonBuilder.registerTypeAdapter(Role.class, roleSerializer);
@@ -74,7 +78,14 @@ public class RoleController extends HttpServlet {
             mapResponse.put("newPossibleRoles",newPossibleRoles);
             mapResponse.put("feedback","ok");
         }
-        String jsonResponse = gsonBuilder.create().toJson(mapResponse);
-        response.getWriter().write(jsonResponse);
+        return gsonBuilder.create().toJson(mapResponse);
+    }
+
+    private String doMethodError()
+    {
+        Map<String,Object> mapResponse = new HashMap<>();
+        mapResponse.put("feedback","ko");
+        mapResponse.put("error", "Action parameter not found.");
+        return new Gson().toJson(mapResponse);
     }
 }

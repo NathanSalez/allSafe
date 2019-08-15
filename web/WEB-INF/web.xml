@@ -15,6 +15,11 @@
             <include-prelude>/WEB-INF/header.jsp</include-prelude>
             <include-coda>/WEB-INF/footer.jsp</include-coda>
         </jsp-property-group>
+        <!-- CHAR ENCODING FOR MODAL -->
+        <jsp-property-group>
+            <url-pattern>*.html</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
     </jsp-config>
 
     <!-- SESSION CONFIG -->
