@@ -28,7 +28,22 @@ public class UsersAjaxController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        response.setContentType("application/json");
+        String jsonResponse = "";
+        switch(action)
+        {
+            case "updateUser" :
+                jsonResponse = doPostUpdateUserStatus(request);
+                break;
 
+            case "deleteUser" :
+                break;
+
+            default:
+                jsonResponse = doMethodError();
+        }
+        response.getWriter().write(jsonResponse);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,6 +80,12 @@ public class UsersAjaxController extends HttpServlet {
             mapResponse.put("error", userManagementService.getErrors());
         }
         return new Gson().toJson(mapResponse);
+    }
+
+    private String doPostUpdateUserStatus(HttpServletRequest request)
+    {
+        // TODO : create response to ajax request for updating user (backend side).
+        return "";
     }
 
     private String doMethodError()

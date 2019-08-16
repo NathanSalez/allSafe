@@ -1,9 +1,10 @@
 
 var urlRolesController = "";
+var urlUsersController ="";
 var selectRolesDOM = undefined;
 
 $(document).ready(function() {
-
+    urlUsersController = $("#urlUsers").val();
     urlRolesController = $("#urlRoles").val();
     selectRolesDOM = $("#role-select");
 
@@ -49,13 +50,25 @@ $(document).ready(function() {
     $("#allsafe-update-user").click(
         function()
         {
-            var data = {
+            var input = {
                 pseudo: $("#pseudo").val(),
-                newRole: $("#role-select option:selected").val()
+                newRole: $("#role-select option:selected").val(),
+                action: "updateUser"
             };
-            console.log("Sending AJAX request with following parameters :");
-            console.log(data);
-            // TODO : create response to ajax request for updating user.
+            $.ajax(
+                {
+                    url:urlUsersController,
+                    method: "post",
+                    dataType:"json",
+                    data:input,
+                    success : function(response)
+                    {
+                        console.log(response);
+                        // TODO : create response to ajax request for updating user (frontend side).
+                    }
+
+                }
+            )
         }
     )
 });
