@@ -3,10 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-<!-- TODO : use Maven for dependencies -->
 <!-- TODO : admin users can import new users to register them -->
 <!-- TODO : protect website from CSRF -->
-<!-- TODO : deploy website on heroku after maven task -->
+<!-- TODO : deploy website on heroku -->
     <jsp-config>
         <!-- TODO : for modals (update/delete an user), use .jsp without footer and header include -->
         <!-- VIEW STRUCTURE -->
@@ -28,7 +27,7 @@
     </session-config>
 
     <!-- FILTERS -->
-    <!--<filter>
+    <filter>
         <filter-name>Set Character Encoding</filter-name>
         <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
         <init-param>
@@ -43,7 +42,7 @@
     <filter-mapping>
         <filter-name>Set Character Encoding</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
+    </filter-mapping>
 
     <!-- FORWARDING ERROR -->
     <error-page>
