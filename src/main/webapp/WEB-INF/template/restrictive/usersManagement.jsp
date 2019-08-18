@@ -5,13 +5,15 @@ TODO : users can delete other user
 TODO : users can search user by their name, role, register date, state
  --%>
 <h1>Users Table</h1>
-<div class="allsafe-notification-container">
+<div id="allsafe-notifications">
     <h2>Notifications</h2>
-    <div class="alert alert-success" role="alert">
-        User <strong>Nathan</strong> updated !
-    </div>
-    <div class="allsafe-notification alert alert-success" role="alert">
-        User <strong>Nathan</strong> deleted !
+    <div id="allsafe-notification-container">
+        <div id="notificationTemplate" class="alert alert-success allsafe-modele" role="alert">
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="allsafe-message">User <strong>Nathan</strong> updated !</span>
+        </div>
     </div>
 </div>
 <div id="usersTable">

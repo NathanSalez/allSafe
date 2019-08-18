@@ -2,11 +2,44 @@
 var urlRolesController = "";
 var urlUsersController ="";
 var selectRolesDOM = undefined;
+var notificationTemplate = undefined;
+var notificationContainerDOM = undefined;
+
+/**
+ *
+ * @param level a string in the set {"success","warning","danger"}
+ * @param message the string contained in the new notification. Can contain HTML text.
+ */
+var addNotification = function(level,message)
+{
+    var newNotificationDOM = notificationTemplate.clone(true);
+    if( level === undefined || typeof level !== "string")
+    {
+        level = "danger";
+    }
+    if( message === undefined || typeof message !== "string")
+    {
+        message = "Warning ! No message found.";
+    }
+    newNotificationDOM
+        .addClass("alert-" + level)
+        .removeClass("allsafe-modele");
+    $(".allsafe-message",newNotificationDOM).html(message);
+    notificationContainerDOM.prepend(newNotificationDOM);
+};
 
 $(document).ready(function() {
     urlUsersController = $("#urlUsers").val();
     urlRolesController = $("#urlRoles").val();
     selectRolesDOM = $("#role-select");
+    notificationTemplate = $("#notificationTemplate");
+    $("#notificationTemplate button").click(
+        function() // delete notification
+        {
+            $(this).parent().remove();
+        }
+    );
+    notificationContainerDOM = $("#allsafe-notification-container");
 
     // AJAX : insert selected user in modal's input and select new possible roles.
     $(".allsafe-update").click(
@@ -38,7 +71,7 @@ $(document).ready(function() {
                         }
                         else
                         {
-                            alert("The server is not able to get new possible roles. Please check the logs.");
+                            addNotification("danger","The server is not able to get new possible roles. Please check the logs.");
                             console.log(response);
                         }
                     }

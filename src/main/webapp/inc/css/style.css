@@ -55,19 +55,16 @@ table
     text-align: center;
 }
 
-.allsafe-notification-container
+#allsafe-notifications
 {
     position: absolute;
     margin-left: 15px;
     padding: 15px;
     border: 20px black outset;
+    width: 300px;
 }
 
-.allsafe-notification-container .alert
+.allsafe-modele
 {
-    max-width:250px;
-}
-#nbConnectedUsers
-{
-    margin-bottom: auto;
+    display:none;
 }
