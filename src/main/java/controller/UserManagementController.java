@@ -21,7 +21,7 @@ import static controller.BaseController.VIEW_FIELD_NAME;
 @WebServlet("/restrictive/users/management")
 public class UserManagementController extends HttpServlet {
 
-    private final static String VIEW = "/WEB-INF/restrictive/usersManagement.jsp";
+    private final static String VIEW = "/WEB-INF/template/restrictive/usersManagement.jsp";
 
     private final static String USERS_ATTRIBUTE = "users";
     private final static String FEEDBACK_ATTRIBUTE = "feedback";

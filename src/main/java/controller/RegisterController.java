@@ -19,7 +19,7 @@ import static controller.BaseController.VIEW_FIELD_NAME;
 @WebServlet("/accessible/register")
 public class RegisterController extends HttpServlet {
 
-    private final static String VIEW = "/WEB-INF/accessible/register.jsp";
+    private final static String VIEW = "/WEB-INF/template/accessible/register.jsp";
 
     private RegisterService registerService;
 

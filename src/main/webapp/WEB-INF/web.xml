@@ -7,10 +7,9 @@
 <!-- TODO : protect website from CSRF -->
 <!-- TODO : heroku - deploy database. -->
     <jsp-config>
-        <!-- TODO : for modals (update/delete an user), use .jsp without footer and header include -->
         <!-- VIEW STRUCTURE -->
         <jsp-property-group>
-            <url-pattern>*.jsp</url-pattern>
+            <url-pattern>/WEB-INF/template/*</url-pattern>
             <page-encoding>UTF-8</page-encoding>
             <include-prelude>/WEB-INF/header.jsp</include-prelude>
             <include-coda>/WEB-INF/footer.jsp</include-coda>
@@ -24,6 +23,7 @@
 
     <!-- FILTERS -->
     <filter>
+        <!-- Sending ut8-character in a form -->
         <filter-name>Set Character Encoding</filter-name>
         <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
         <init-param>

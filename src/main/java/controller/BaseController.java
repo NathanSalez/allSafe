@@ -12,7 +12,7 @@ import java.io.IOException;
 @WebServlet("/welcome")
 public class BaseController extends HttpServlet {
 
-    private final static String VIEW = "/WEB-INF/index.jsp";
+    private final static String VIEW = "/WEB-INF/template/index.jsp";
 
     public final static String VIEW_FIELD_NAME = "view";
     public final static String FORM_ATTRIBUTE = "form";

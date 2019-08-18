@@ -70,7 +70,7 @@ TODO : users can search user by their name, role, register date, state
         </tfoot>
     </table>
 
-    <c:import url="../modal/updateModal.html"/>
+    <c:import url="../../modal/updateModal.jsp"/>
 </div>
 <c:if test="${feedback=='ko'}">
     <p class="error alert alert-danger">

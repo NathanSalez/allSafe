@@ -21,8 +21,7 @@ import model.User;
 @WebServlet("/accessible/login")
 public class LoginController extends HttpServlet {
 
-    private final static String VIEW_NOT_LOGGED = "/WEB-INF/accessible/login.jsp";
-    public final static String VIEW_LOGGED = "/WEB-INF/restrictive/usersManagement.jsp";
+    private final static String VIEW_NOT_LOGGED = "/WEB-INF/template/accessible/login.jsp";
 
     private LoginService loginService;
 
