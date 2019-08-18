@@ -55,6 +55,18 @@ table
     text-align: center;
 }
 
+.allsafe-notification-container
+{
+    position: absolute;
+    margin-left: 15px;
+    padding: 15px;
+    border: 20px black outset;
+}
+
+.allsafe-notification-container .alert
+{
+    max-width:250px;
+}
 #nbConnectedUsers
 {
     margin-bottom: auto;

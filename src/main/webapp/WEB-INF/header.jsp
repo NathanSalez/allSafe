@@ -14,7 +14,7 @@
 <input type="hidden" value="<c:url value="/roles/" />" id="urlRoles"/>
 
 <%-- TODO : make a responsive navbar --%>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item <c:if test="${requestScope.view == 'home'}">active</c:if>">
