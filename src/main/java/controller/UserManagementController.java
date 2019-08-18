@@ -5,6 +5,7 @@ import dao.DAOFactory;
 import dao.UserDao;
 import model.User;
 import service.UserManagementService;
+import utils.SecurityUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +25,7 @@ public class UserManagementController extends HttpServlet {
     private final static String VIEW = "/WEB-INF/template/restrictive/usersManagement.jsp";
 
     private final static String USERS_ATTRIBUTE = "users";
+    private final static String TOKEN_ATTRIBUTE = "token";
     private final static String FEEDBACK_ATTRIBUTE = "feedback";
     private UserManagementService userManagementService;
 
@@ -45,6 +47,9 @@ public class UserManagementController extends HttpServlet {
         request.setAttribute(FORM_ATTRIBUTE,userManagementService);
         if( userManagementService.getFeedback())
         {
+            // protection against CSRF
+            String CSRFToken = SecurityUtils.generateToken();
+            request.getSession().setAttribute(TOKEN_ATTRIBUTE,CSRFToken);
             request.setAttribute(USERS_ATTRIBUTE,users);
         }
         else

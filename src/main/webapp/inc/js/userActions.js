@@ -53,6 +53,7 @@ $(document).ready(function() {
             var input = {
                 pseudo: $("#pseudo").val(),
                 newRole: $("#role-select option:selected").val(),
+                token : $("#securityToken").val(),
                 action: "updateUser"
             };
             $.ajax(
