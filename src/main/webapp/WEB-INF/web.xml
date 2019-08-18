@@ -5,19 +5,15 @@
          version="4.0">
 <!-- TODO : admin users can import new users to register them -->
 <!-- TODO : protect website from CSRF -->
-<!-- TODO : deploy website on heroku -->
+<!-- TODO : heroku - deploy database. -->
     <jsp-config>
         <!-- TODO : for modals (update/delete an user), use .jsp without footer and header include -->
         <!-- VIEW STRUCTURE -->
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
             <include-prelude>/WEB-INF/header.jsp</include-prelude>
             <include-coda>/WEB-INF/footer.jsp</include-coda>
-        </jsp-property-group>
-        <!-- CHAR ENCODING FOR MODAL -->
-        <jsp-property-group>
-            <url-pattern>*.html</url-pattern>
-            <page-encoding>UTF-8</page-encoding>
         </jsp-property-group>
     </jsp-config>
 
