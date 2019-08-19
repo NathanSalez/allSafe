@@ -3,11 +3,13 @@ package controller;
 import com.google.gson.Gson;
 import config.InitialisationDaoFactory;
 import dao.DAOFactory;
+import dao.RoleDao;
 import dao.UserDao;
 import model.Role;
 import model.User;
 import service.UserManagementService;
 import utils.SecurityUtils;
+import utils.SessionUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +29,8 @@ public class UsersAjaxController extends HttpServlet {
     public void init() {
         DAOFactory daoFactory = (DAOFactory) getServletContext().getAttribute(InitialisationDaoFactory.ATT_DAO_FACTORY);
         UserDao userDao =  daoFactory.getUserDao();
-        userManagementService = new UserManagementService(userDao);
+        RoleDao roleDao = daoFactory.getRoleDao();
+        userManagementService = new UserManagementService(userDao,roleDao);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -101,7 +104,8 @@ public class UsersAjaxController extends HttpServlet {
             User affectedUser = new User();
             affectedUser.setPseudo(pseudoAffectedUser);
             affectedUser.setRole(currentRole);
-            if( userManagementService.updateUserRole(request,affectedUser,newRole) ) {
+            User executorUser = (User) SessionUtils.getFieldValue(request,SessionUtils.USER_SESSION_FIELD);
+            if( userManagementService.updateUserRole(executorUser,affectedUser,newRole) ) {
                 mapResponse.put("feedback", "ok");
             } else
             {

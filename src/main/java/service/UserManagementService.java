@@ -1,6 +1,7 @@
 package service;
 
 import dao.DAOException;
+import dao.RoleDao;
 import dao.UserDao;
 import model.Role;
 import model.User;
@@ -15,9 +16,12 @@ public class UserManagementService extends AbstractService {
 
     private UserDao userDao;
 
-    public UserManagementService(UserDao userDao) {
+    private RoleDao roleDao;
+
+    public UserManagementService(UserDao userDao, RoleDao roleDao) {
         super();
         this.userDao = userDao;
+        this.roleDao = roleDao;
     }
 
     public Collection<User> getAllUsers()
@@ -48,12 +52,13 @@ public class UserManagementService extends AbstractService {
         return returnedValue;
     }
 
-    public boolean updateUserRole(HttpServletRequest request, User affectedUser, Role newRole)
+    public boolean updateUserRole(User executorUser, User affectedUser, Role newRole)
     {
-        if( request == null)
+        if( executorUser == null || affectedUser == null || newRole == null)
             return false;
-        // TODO : update user - write service method
-        // check if current user session can update, and then update affected user.
-        return false;
+        if( !roleDao.hasTheRightTo(executorUser.getRole() ,"updateAs", affectedUser.getRole(), newRole) )
+            return false;
+        userDao.updateRole(affectedUser.getPseudo(),newRole);
+        return true;
     }
 }

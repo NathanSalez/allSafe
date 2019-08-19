@@ -88,7 +88,7 @@ $(document).ready(function() {
         {
             var input = {
                 pseudo: $("#pseudo").val(),
-                // TODO : add current role of the pseudo
+                currentRole : $("#currentRole").val(),
                 newRole: $("#role-select option:selected").val(),
                 token : $("#securityToken").val(),
                 action: "updateUser"
