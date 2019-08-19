@@ -5,6 +5,7 @@ import config.InitialisationDaoFactory;
 import dao.DAOFactory;
 import dao.UserDao;
 import service.UserManagementService;
+import utils.SecurityUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -84,8 +85,20 @@ public class UsersAjaxController extends HttpServlet {
 
     private String doPostUpdateUserStatus(HttpServletRequest request)
     {
-        // TODO : create response to ajax request for updating user (backend side).
-        return "{\"feedback\":\"ok\"}";
+        Map<String,Object> mapResponse = new HashMap<>();
+        Map<String,Object> updateInfos = new HashMap<>();
+        updateInfos.put("affectedUser", request.getParameter("pseudo"));
+        updateInfos.put("newRole",request.getParameter("newRole"));
+        mapResponse.put("update",updateInfos);
+        if( SecurityUtils.checkRequest(request) )
+        {
+            mapResponse.put("feedback","ok");
+        } else
+        {
+            mapResponse.put("feedback","ko");
+        }
+
+        return new Gson().toJson(mapResponse);
     }
 
     private String doMethodError()

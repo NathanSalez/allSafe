@@ -101,23 +101,14 @@ $(document).ready(function() {
                     success : function(response)
                     {
                         console.log(response);
-                        response =
-                            {
-                                "feedback" : "ok",
-                                "update" :
-                                    {
-                                        "affectedUser" : "Nathan",
-                                        "formerRole" : "MODERATOR",
-                                        "newRole" : "ADMIN"
-                                    }
-                            };
                         if( response.feedback === "ok")
                         {
+                            // TODO : if current session user is updated, refresh page.
                             var userPseudo = response.update.affectedUser;
                             var message = "User <strong>" + userPseudo + "</strong> successfully updated";
                             addNotification("success",message);
                             var lineToUpdateDOM = $("td:contains(" + userPseudo + ")",dataTableDOM).parent();
-                            var fieldToUpdateDOM = $("td:contains(" + response.update.formerRole + ")",lineToUpdateDOM);
+                            var fieldToUpdateDOM = $("td:nth-child(4)",lineToUpdateDOM);
                             fieldToUpdateDOM.html(response.update.newRole);
                         }
                         else

@@ -17,6 +17,7 @@ import java.util.Collection;
 
 import static controller.BaseController.FORM_ATTRIBUTE;
 import static controller.BaseController.VIEW_FIELD_NAME;
+import static utils.SecurityUtils.TOKEN_FIELD;
 
 
 @WebServlet("/restrictive/users/management")
@@ -25,7 +26,6 @@ public class UserManagementController extends HttpServlet {
     private final static String VIEW = "/WEB-INF/template/restrictive/usersManagement.jsp";
 
     private final static String USERS_ATTRIBUTE = "users";
-    private final static String TOKEN_ATTRIBUTE = "token";
     private final static String FEEDBACK_ATTRIBUTE = "feedback";
     private UserManagementService userManagementService;
 
@@ -49,7 +49,7 @@ public class UserManagementController extends HttpServlet {
         {
             // protection against CSRF
             String CSRFToken = SecurityUtils.generateToken();
-            request.getSession().setAttribute(TOKEN_ATTRIBUTE,CSRFToken);
+            request.getSession().setAttribute(TOKEN_FIELD,CSRFToken);
             request.setAttribute(USERS_ATTRIBUTE,users);
         }
         else
