@@ -51,9 +51,9 @@ $(document).ready(function() {
             selectRolesDOM.empty();
             var line = $(this).parent().parent();
             var pseudo = $(".allsafe-pseudo",line).html();
-            console.log("Current user want to update " + pseudo);
+            var currentRole = $(".allsafe-role",line).html();
             $("#pseudo").val(pseudo);
-            console.log("Getting new roles for user " + pseudo);
+            $("#currentRole").val(currentRole);
             var input = {
                 "affectedRole" : $(".allsafe-role",line).html()
             };
