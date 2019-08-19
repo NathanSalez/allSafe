@@ -4,6 +4,7 @@ import dao.DAOException;
 import dao.DAOFactory;
 import dao.UserDao;
 
+import model.Role;
 import model.User;
 import org.junit.jupiter.api.*;
 
@@ -102,5 +103,13 @@ class UserDaoTest {
         User uNotRegistered = usersTest.get(1);
         assertDoesNotThrow(() -> userDao.delete(uRegistered.getPseudo()) );
         assertThrows(DAOException.class, () -> userDao.delete(uNotRegistered.getPseudo()));
+    }
+
+    @Test
+    void updateRole() {
+        User uRegistered = usersTest.get(0);
+        User uNotRegistered = usersTest.get(1);
+        assertDoesNotThrow(() -> userDao.updateRole(uRegistered.getPseudo(), Role.ADMIN ));
+        assertThrows(DAOException.class, () -> userDao.updateRole(uNotRegistered.getPseudo(),Role.ADMIN));
     }
 }

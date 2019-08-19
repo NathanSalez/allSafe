@@ -54,11 +54,18 @@ public class UserManagementService extends AbstractService {
 
     public boolean updateUserRole(User executorUser, User affectedUser, Role newRole)
     {
-        if( executorUser == null || affectedUser == null || newRole == null)
-            return false;
-        if( !roleDao.hasTheRightTo(executorUser.getRole() ,"updateAs", affectedUser.getRole(), newRole) )
-            return false;
-        userDao.updateRole(affectedUser.getPseudo(),newRole);
+        try {
+            if (executorUser == null || affectedUser == null || newRole == null)
+                return false;
+            if( affectedUser.getRole().equals(newRole))
+                return false;
+            if (!roleDao.hasTheRightTo(executorUser.getRole(), "updateAs", affectedUser.getRole(), newRole))
+                return false;
+            userDao.updateRole(affectedUser.getPseudo(), newRole);
+        } catch (DAOException e)
+        {
+            errors.put(DATABASE_FIELD,"Syntax Error on SQL request.");
+        }
         return true;
     }
 }

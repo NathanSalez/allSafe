@@ -29,6 +29,8 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
 
     private static final String DISCONNECT_USER = "UPDATE users SET logged = 0 WHERE pseudo = ?";
 
+    private static final String UPDATE_USER_ROLE = "UPDATE users set role = ? where pseudo = ?";
+
     private static final String SELECT_ALL_USERS = "SELECT * FROM users";
 
     private static final String COUNT_LOGGED_USERS = "SELECT COUNT(*) AS LOGGED_USERS FROM users where logged = 1";
@@ -103,30 +105,35 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
 
     @Override
     public void updateState(String pseudo, boolean connect) throws DAOException {
+        String request = connect ? CONNECT_USER : DISCONNECT_USER;
+        updateUser(request,pseudo);
+    }
+
+    @Override
+    public void updateRole(String pseudo, Role newRole) throws DAOException {
+        updateUser(UPDATE_USER_ROLE,newRole.name(),pseudo);
+    }
+
+    private void updateUser(String request, Object... args)
+    {
         Connection connection = null;
         PreparedStatement pstmt = null;
-        String request = connect ? CONNECT_USER : DISCONNECT_USER;
         try {
             connection = daoFactory.getConnection();
-            pstmt = DaoUtils.buildPreparedStatement(connection, request, false, pseudo);
+            pstmt = DaoUtils.buildPreparedStatement(connection, request, false, args);
             int nbAffectedLines = pstmt.executeUpdate();
             if( nbAffectedLines == 0 )
             {
-                throw new DAOException("User " + pseudo + " not found.");
+                throw new DAOException("User not found.");
             } else if( nbAffectedLines != 1)
             {
-                throw new DAOException("User " + pseudo + "is not unique.");
+                throw new DAOException("User is not unique.");
             }
         } catch (SQLException e) {
             throw new DAOException(e);
         } finally {
             DaoUtils.closeDatabaseConnexion(pstmt, connection);
         }
-    }
-
-    @Override
-    public void updateRole(String pseudo, Role newRole) throws DAOException {
-        // TODO : write dao method updateRole and test the method.
     }
 
     @Override
