@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import config.InitialisationDaoFactory;
 import dao.DAOFactory;
 import dao.UserDao;
+import model.Role;
+import model.User;
 import service.UserManagementService;
 import utils.SecurityUtils;
 
@@ -35,7 +37,7 @@ public class UsersAjaxController extends HttpServlet {
         switch(action)
         {
             case "updateUser" :
-                jsonResponse = doPostUpdateUserStatus(request);
+                jsonResponse = doPostUpdateUserRole(request);
                 break;
 
             case "deleteUser" :
@@ -83,15 +85,22 @@ public class UsersAjaxController extends HttpServlet {
         return new Gson().toJson(mapResponse);
     }
 
-    private String doPostUpdateUserStatus(HttpServletRequest request)
+    private String doPostUpdateUserRole(HttpServletRequest request)
     {
         Map<String,Object> mapResponse = new HashMap<>();
         Map<String,Object> updateInfos = new HashMap<>();
-        updateInfos.put("affectedUser", request.getParameter("pseudo"));
-        updateInfos.put("newRole",request.getParameter("newRole"));
+        String pseudoAffectedUser = request.getParameter("pseudo");
+        Role currentRole = Role.getRole(request.getParameter("currentRole"));
+        Role newRole = Role.getRole(request.getParameter("newRole"));
+        updateInfos.put("affectedUser", pseudoAffectedUser);
+        updateInfos.put("newRole",newRole.name());
         mapResponse.put("update",updateInfos);
         if( SecurityUtils.checkRequest(request) )
         {
+            User affectedUser = new User();
+            affectedUser.setPseudo(pseudoAffectedUser);
+            affectedUser.setRole(currentRole);
+            userManagementService.updateUserRole(request,affectedUser,newRole);
             mapResponse.put("feedback","ok");
         } else
         {

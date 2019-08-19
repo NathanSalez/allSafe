@@ -2,8 +2,10 @@ package service;
 
 import dao.DAOException;
 import dao.UserDao;
+import model.Role;
 import model.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 /**
@@ -44,5 +46,14 @@ public class UserManagementService extends AbstractService {
             errors.put(DATABASE_FIELD,"Syntax Error on SQL request.");
         }
         return returnedValue;
+    }
+
+    public boolean updateUserRole(HttpServletRequest request, User affectedUser, Role newRole)
+    {
+        if( request == null)
+            return false;
+
+        // check if current user session can update, and then update affected user.
+        return false;
     }
 }

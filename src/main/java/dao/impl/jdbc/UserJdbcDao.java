@@ -125,6 +125,11 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
     }
 
     @Override
+    public void updateRole(String pseudo, Role newRole) throws DAOException {
+        // TODO : write dao method updateRole and test the method.
+    }
+
+    @Override
     public Long countLoggedUsers() throws DAOException {
         Connection connection = null;
         ResultSet result = null;

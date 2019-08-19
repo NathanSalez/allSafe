@@ -1,5 +1,6 @@
 package dao;
 
+import model.Role;
 import model.User;
 
 import java.util.Collection;
@@ -11,6 +12,8 @@ public interface UserDao{
     User find( String pseudo) throws DAOException;
 
     void updateState(String pseudo, boolean connect) throws DAOException;
+
+    void updateRole(String pseudo, Role newRole) throws DAOException;
 
     Long countLoggedUsers() throws DAOException;
 
