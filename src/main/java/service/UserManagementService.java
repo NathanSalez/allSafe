@@ -52,7 +52,7 @@ public class UserManagementService extends AbstractService {
     {
         if( request == null)
             return false;
-
+        // TODO : update user - write service method
         // check if current user session can update, and then update affected user.
         return false;
     }

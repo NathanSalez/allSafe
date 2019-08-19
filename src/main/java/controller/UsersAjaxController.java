@@ -95,16 +95,21 @@ public class UsersAjaxController extends HttpServlet {
         updateInfos.put("affectedUser", pseudoAffectedUser);
         updateInfos.put("newRole",newRole.name());
         mapResponse.put("update",updateInfos);
+        mapResponse.put("feedback","ko");
         if( SecurityUtils.checkRequest(request) )
         {
             User affectedUser = new User();
             affectedUser.setPseudo(pseudoAffectedUser);
             affectedUser.setRole(currentRole);
-            userManagementService.updateUserRole(request,affectedUser,newRole);
-            mapResponse.put("feedback","ok");
+            if( userManagementService.updateUserRole(request,affectedUser,newRole) ) {
+                mapResponse.put("feedback", "ok");
+            } else
+            {
+                mapResponse.put("error","User not updated, check your rights.");
+            }
         } else
         {
-            mapResponse.put("feedback","ko");
+            mapResponse.put("error","Request sent is vulnerable against CSRF.");
         }
 
         return new Gson().toJson(mapResponse);

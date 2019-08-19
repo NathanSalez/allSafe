@@ -114,8 +114,7 @@ $(document).ready(function() {
                         }
                         else
                         {
-                            var message = "User <strong>Nathan</strong> not updated, check your rights.";
-                            addNotification("warning",message);
+                            addNotification("warning",response.error);
                         }
                     }
 
