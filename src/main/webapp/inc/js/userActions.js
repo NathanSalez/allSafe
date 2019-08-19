@@ -4,6 +4,7 @@ var urlUsersController ="";
 var selectRolesDOM = undefined;
 var notificationTemplate = undefined;
 var notificationContainerDOM = undefined;
+var dataTableDOM = undefined;
 
 /**
  *
@@ -33,6 +34,8 @@ $(document).ready(function() {
     urlRolesController = $("#urlRoles").val();
     selectRolesDOM = $("#role-select");
     notificationTemplate = $("#notificationTemplate");
+    dataTableDOM = $("#usersTable");
+
     $("#notificationTemplate button").click(
         function() // delete notification
         {
@@ -98,7 +101,30 @@ $(document).ready(function() {
                     success : function(response)
                     {
                         console.log(response);
-                        // TODO : create response to ajax request for updating user (frontend side).
+                        response =
+                            {
+                                "feedback" : "ok",
+                                "update" :
+                                    {
+                                        "affectedUser" : "Nathan",
+                                        "formerRole" : "MODERATOR",
+                                        "newRole" : "ADMIN"
+                                    }
+                            };
+                        if( response.feedback === "ok")
+                        {
+                            var userPseudo = response.update.affectedUser;
+                            var message = "User <strong>" + userPseudo + "</strong> successfully updated";
+                            addNotification("success",message);
+                            var lineToUpdateDOM = $("td:contains(" + userPseudo + ")",dataTableDOM).parent();
+                            var fieldToUpdateDOM = $("td:contains(" + response.update.formerRole + ")",lineToUpdateDOM);
+                            fieldToUpdateDOM.html(response.update.newRole);
+                        }
+                        else
+                        {
+                            var message = "User <strong>Nathan</strong> not updated, check your rights.";
+                            addNotification("warning",message);
+                        }
                     }
 
                 }

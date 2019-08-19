@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebFilter("/restrictive/*")
 public class RestrictiveFilter implements Filter {
 
-    private static String PUBLIC_ACCESS = "/WEB-INF/accessible/publicAccess.jsp";
+    private static String PUBLIC_ACCESS = "/WEB-INF/template/accessible/publicAccess.jsp";
     public void destroy() {
     }
 

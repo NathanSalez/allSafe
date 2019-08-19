@@ -85,7 +85,7 @@ public class UsersAjaxController extends HttpServlet {
     private String doPostUpdateUserStatus(HttpServletRequest request)
     {
         // TODO : create response to ajax request for updating user (backend side).
-        return "";
+        return "{\"feedback\":\"ok\"}";
     }
 
     private String doMethodError()
