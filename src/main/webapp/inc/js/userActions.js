@@ -105,6 +105,7 @@ $(document).ready(function() {
                         if( response.feedback === "ok")
                         {
                             // TODO : if current session user is updated, refresh page.
+                            // later : actualizes update and delete fields for affected user
                             var userPseudo = response.update.affectedUser;
                             var message = "User <strong>" + userPseudo + "</strong> successfully updated";
                             addNotification("success",message);
@@ -122,4 +123,23 @@ $(document).ready(function() {
             )
         }
     )
+
+    // AJAX : insert selected user in modal's input delete
+    $(".allsafe-delete").click(
+        function()
+        {
+            //TODO : insert selected user in modal's input delete
+        }
+    );
+
+    // AJAX : delete user
+    $("#allsafe-delete-user").click(
+        function()
+        {
+            // TODO : make ajax request to delete user.
+        }
+    );
+
+
+
 });

@@ -6,7 +6,6 @@ import dao.UserDao;
 import model.Role;
 import model.User;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 /**

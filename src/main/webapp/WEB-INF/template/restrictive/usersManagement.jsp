@@ -60,7 +60,8 @@ TODO : users can search user by their name, role, register date, state
                     </as:hasRight>
                     <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete"
                                  affectedRole="${user.role}">
-                        <td><input type="button" class="btn-danger" value="Delete"/></td>
+                        <td><input type="button" class="btn-danger allsafe-delete" value="Delete" data-toggle="modal"
+                                   data-target="#deleteModal"/></td>
                     </as:hasRight>
                 </tr>
             </c:forEach>
@@ -85,6 +86,7 @@ TODO : users can search user by their name, role, register date, state
     </table>
 
     <c:import url="../../modal/updateModal.jsp"/>
+    <c:import url="../../modal/deleteModal.jsp"/>
 </div>
 <c:if test="${feedback=='ko'}">
     <p class="error alert alert-danger">
