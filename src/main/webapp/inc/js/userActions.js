@@ -29,6 +29,44 @@ var addNotification = function(level,message)
     notificationContainerDOM.prepend(newNotificationDOM);
 };
 
+var addUpdateButton = function(lineToUpdateDOM)
+{
+
+};
+
+var addDeleteButton = function(lineToUpdateDOM)
+{
+
+};
+
+var removeUpdateButton = function(lineToUpdateDOM)
+{
+
+};
+
+var removeDeleteButton = function(lineToUpdateDOM)
+{
+
+};
+
+var actualizesActionButtons = function(lineToUpdateDOM,actionList)
+{
+    if(actionList.contains("update"))
+    {
+        addUpdateButton(lineToUpdateDOM);
+    } else
+    {
+        removeUpdateButton(lineToUpdateDOM)
+    }
+    if(actionList.contains("delete"))
+    {
+        addDeleteButton(lineToUpdateDOM);
+    } else
+    {
+        removeDeleteButton(lineToUpdateDOM);
+    }
+};
+
 $(document).ready(function() {
     urlUsersController = $("#urlUsers").val();
     urlRolesController = $("#urlRoles").val();
@@ -105,13 +143,14 @@ $(document).ready(function() {
                         if( response.feedback === "ok")
                         {
                             // TODO : if current session user is updated, refresh page.
-                            // later : actualizes update and delete fields for affected user
+                            // TODO : actualizes update and delete fields for affected user
                             var userPseudo = response.update.affectedUser;
                             var message = "User <strong>" + userPseudo + "</strong> successfully updated";
                             addNotification("success",message);
                             var lineToUpdateDOM = $("td:contains(" + userPseudo + ")",dataTableDOM).parent();
-                            var fieldToUpdateDOM = $("td:nth-child(4)",lineToUpdateDOM);
-                            fieldToUpdateDOM.html(response.update.newRole);
+                            var roleToUpdateDOM = $("td:nth-child(4)",lineToUpdateDOM);
+                            roleToUpdateDOM.html(response.update.newRole);
+                            actualizesActionButtons(lineToUpdateDOM,response.possibleActionsOnUser);
                         }
                         else
                         {
@@ -122,7 +161,7 @@ $(document).ready(function() {
                 }
             )
         }
-    )
+    );
 
     // AJAX : insert selected user in modal's input delete
     $(".allsafe-delete").click(

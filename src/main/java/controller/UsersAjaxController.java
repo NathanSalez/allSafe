@@ -7,6 +7,7 @@ import dao.RoleDao;
 import dao.UserDao;
 import model.Role;
 import model.User;
+import service.RoleService;
 import service.UserManagementService;
 import utils.SecurityUtils;
 import utils.SessionUtils;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class UsersAjaxController extends HttpServlet {
 
     private UserManagementService userManagementService;
+    private RoleService roleService;
 
     @Override
     public void init() {
@@ -31,6 +33,7 @@ public class UsersAjaxController extends HttpServlet {
         UserDao userDao =  daoFactory.getUserDao();
         RoleDao roleDao = daoFactory.getRoleDao();
         userManagementService = new UserManagementService(userDao,roleDao);
+        roleService = new RoleService(roleDao);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -107,6 +110,7 @@ public class UsersAjaxController extends HttpServlet {
             User executorUser = (User) SessionUtils.getFieldValue(request,SessionUtils.USER_SESSION_FIELD);
             if( userManagementService.updateUserRole(executorUser,affectedUser,newRole) ) {
                 mapResponse.put("feedback", "ok");
+                mapResponse.put("possibleActionsOnUser",roleService.getPossibleActions(executorUser.getRole(),newRole));
             } else
             {
                 mapResponse.put("error","User not updated, check your rights.");

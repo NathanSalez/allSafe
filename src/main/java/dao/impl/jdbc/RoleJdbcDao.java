@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Nathan Salez
@@ -21,6 +22,8 @@ public class RoleJdbcDao extends JdbcDAO<Role> implements RoleDao {
     private DAOFactory daoFactory;
 
     private static final String GET_POSSIBLE_ROLES_QUERY = "SELECT newRole from rights where executorRole = ? and affectedRole = ? and action='updateAs'";
+
+    private static final String GET_POSSIBLE_ACTIONS_QUERY = "SELECT action from rights where executorRole = ? and affectedRole = ?";
 
     public RoleJdbcDao(DAOFactory daoFactory)
     {
@@ -106,5 +109,26 @@ public class RoleJdbcDao extends JdbcDAO<Role> implements RoleDao {
             DaoUtils.closeDatabaseConnexion(resultSet, pstmt, connection);
         }
         return newPossibleRoles;
+    }
+
+    @Override
+    public List<String> getPossibleActions(Role executorRole, Role affectedRole) throws DAOException {
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        ArrayList<String> possibleActions = new ArrayList<>();
+        try {
+            connection = daoFactory.getConnection();
+            pstmt = DaoUtils.buildPreparedStatement(connection, GET_POSSIBLE_ACTIONS_QUERY, false, executorRole.name(), affectedRole.name() );
+            resultSet = pstmt.executeQuery();
+            while(resultSet.next()) {
+                possibleActions.add( resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            DaoUtils.closeDatabaseConnexion(resultSet, pstmt, connection);
+        }
+        return possibleActions;
     }
 }

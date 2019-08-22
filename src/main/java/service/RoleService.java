@@ -6,6 +6,7 @@ import model.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Nathan Salez
@@ -46,5 +47,19 @@ public class RoleService extends AbstractService {
             errors.put(DATABASE_FIELD,"Syntax Error on SQL request.");
         }
         return returnedValue;
+    }
+
+    public Collection<String> getPossibleActions(Role executorRole, Role affectedRole)
+    {
+        Collection<String> returnedValue = null;
+        try
+        {
+            returnedValue = roleDao.getPossibleActions(executorRole,affectedRole);
+        } catch (DAOException e)
+        {
+            errors.put(DATABASE_FIELD,"Syntax Error on SQL request.");
+        }
+        return returnedValue;
+
     }
 }

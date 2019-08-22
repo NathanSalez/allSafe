@@ -12,4 +12,6 @@ public interface RoleDao{
 
     Collection<Role> getNewPossibleRoles(Role executorRole, Role affectedRole) throws DAOException;
 
+    Collection<String> getPossibleActions(Role executorRole, Role affectedRole) throws DAOException;
+
 }

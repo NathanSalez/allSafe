@@ -3,6 +3,8 @@ package model;
 /**
  * @author Nathan Salez
  */
+// TODO : include class Right in model package.
+// TODO : include enum Role in database.
 public enum Role {
     ADMIN("Administrator"),
     MODERATOR("Moderator"),

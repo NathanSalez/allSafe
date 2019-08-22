@@ -3,9 +3,12 @@ package test.dao;
 import dao.DAOFactory;
 import dao.RoleDao;
 import model.Role;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,5 +45,16 @@ class RoleDaoTest {
         expectedRoles.add(Role.ADMIN);
         Collection<Role> obtainedRoles = roleDao.getNewPossibleRoles(Role.ADMIN,Role.MODERATOR);
         assertArrayEquals(expectedRoles.toArray(),obtainedRoles.toArray());
+    }
+
+    @Test
+    void getPossibleActions() {
+        Set<String> expectedActions = new HashSet<>();
+        expectedActions.add("updateAs");
+        expectedActions.add("delete");
+        expectedActions.add("update");
+        Collection<String> obtainedActions = roleDao.getPossibleActions(Role.ADMIN,Role.MODERATOR);
+        Set<String> obtainedActionsToSet = new HashSet<>(obtainedActions);
+        assertArrayEquals(expectedActions.toArray(),obtainedActionsToSet.toArray());
     }
 }
