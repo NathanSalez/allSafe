@@ -12,11 +12,15 @@ TODO : users can search user by their name, role, register date, state
             <button type="button" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <span class="allsafe-message">User <strong>Nathan</strong> updated !</span>
+            <span class="allsafe-message"></span>
         </div>
     </div>
 </div>
 <div id="usersTable">
+    <input type="button" id="buttonUpdateTemplate" class="btn-success allsafe-update allsafe-modele" value="Update" data-toggle="modal"
+           data-target="#updateModal"/>
+    <input type="button" id="buttonDeleteTemplate" class="btn-danger allsafe-delete allsafe-modele" value="Delete" data-toggle="modal"
+           data-target="#deleteModal"/>
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>

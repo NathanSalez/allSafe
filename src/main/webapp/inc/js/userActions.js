@@ -5,6 +5,8 @@ var selectRolesDOM = undefined;
 var notificationTemplate = undefined;
 var notificationContainerDOM = undefined;
 var dataTableDOM = undefined;
+var buttonUpdateTemplate = undefined;
+var buttonDeleteTemplate = undefined;
 
 /**
  *
@@ -23,30 +25,43 @@ var addNotification = function(level,message)
         message = "Warning ! No message found.";
     }
     newNotificationDOM
-        .addClass("alert-" + level)
-        .removeClass("allsafe-modele");
+        .addClass("alert-" + level);
     $(".allsafe-message",newNotificationDOM).html(message);
     notificationContainerDOM.prepend(newNotificationDOM);
 };
 
 var addUpdateButton = function(lineToUpdateDOM)
 {
-
+    var buttonContainer = $("td:nth-child(6)",lineToUpdateDOM);
+    if( buttonContainer === undefined)
+    {
+        throw Error("addUpdateButton - 6th child of line to update not found.");
+    } else
+    {
+        buttonContainer.html(buttonUpdateTemplate.clone(true).html());
+    }
 };
 
 var addDeleteButton = function(lineToUpdateDOM)
 {
-
+    var buttonContainer = $("td:nth-child(7)",lineToUpdateDOM);
+    if( buttonContainer === undefined)
+    {
+        throw Error("addUpdateButton - 7th child of line to update not found.");
+    } else
+    {
+        buttonContainer.html(buttonDeleteTemplate.clone(true).html());
+    }
 };
 
 var removeUpdateButton = function(lineToUpdateDOM)
 {
-
+    $("td:nth-child(6)",lineToUpdateDOM).empty();
 };
 
 var removeDeleteButton = function(lineToUpdateDOM)
 {
-
+    $("td:nth-child(7)",lineToUpdateDOM).empty();
 };
 
 var actualizesActionButtons = function(lineToUpdateDOM,actionList)
@@ -71,7 +86,9 @@ $(document).ready(function() {
     urlUsersController = $("#urlUsers").val();
     urlRolesController = $("#urlRoles").val();
     selectRolesDOM = $("#role-select");
-    notificationTemplate = $("#notificationTemplate");
+    notificationTemplate = $("#notificationTemplate").removeClass("allsafe-modele");
+    buttonDeleteTemplate = $("#buttonDeleteTemplate").removeClass("allsafe-modele");
+    buttonUpdateTemplate = $("#buttonUpdateTemplate").removeClass("allsafe-modele");
     dataTableDOM = $("#usersTable");
 
     $("#notificationTemplate button").click(
