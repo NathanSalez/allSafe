@@ -15,7 +15,7 @@ var buttonDeleteTemplate = undefined;
  */
 var addNotification = function(level,message)
 {
-    var newNotificationDOM = notificationTemplate.clone(true);
+    var newNotificationDOM = notificationTemplate.clone(true).removeClass("allsafe-modele");
     if( level === undefined || typeof level !== "string")
     {
         level = "danger";
@@ -32,48 +32,50 @@ var addNotification = function(level,message)
 
 var addUpdateButton = function(lineToUpdateDOM)
 {
-    var buttonContainer = $("td:nth-child(6)",lineToUpdateDOM);
-    if( buttonContainer === undefined)
-    {
-        throw Error("addUpdateButton - 6th child of line to update not found.");
-    } else
-    {
-        buttonContainer.html(buttonUpdateTemplate.clone(true).html());
-    }
-};
-
-var addDeleteButton = function(lineToUpdateDOM)
-{
     var buttonContainer = $("td:nth-child(7)",lineToUpdateDOM);
     if( buttonContainer === undefined)
     {
         throw Error("addUpdateButton - 7th child of line to update not found.");
     } else
     {
-        buttonContainer.html(buttonDeleteTemplate.clone(true).html());
+        if( !buttonContainer.html().includes("<input"))
+            buttonContainer.append(buttonUpdateTemplate.clone(true).removeClass("allsafe-modele"));
+    }
+};
+
+var addDeleteButton = function(lineToUpdateDOM)
+{
+    var buttonContainer = $("td:nth-child(8)",lineToUpdateDOM);
+    if( buttonContainer === undefined)
+    {
+        throw Error("addUpdateButton - 8th child of line to update not found.");
+    } else
+    {
+        if( !buttonContainer.html().includes("<input"))
+            buttonContainer.append(buttonDeleteTemplate.clone(true).removeClass("allsafe-modele"));
     }
 };
 
 var removeUpdateButton = function(lineToUpdateDOM)
 {
-    $("td:nth-child(6)",lineToUpdateDOM).empty();
+    $("td:nth-child(7)",lineToUpdateDOM).empty();
 };
 
 var removeDeleteButton = function(lineToUpdateDOM)
 {
-    $("td:nth-child(7)",lineToUpdateDOM).empty();
+    $("td:nth-child(8)",lineToUpdateDOM).empty();
 };
 
 var actualizesActionButtons = function(lineToUpdateDOM,actionList)
 {
-    if(actionList.contains("update"))
+    if(actionList.includes("update"))
     {
         addUpdateButton(lineToUpdateDOM);
     } else
     {
         removeUpdateButton(lineToUpdateDOM)
     }
-    if(actionList.contains("delete"))
+    if(actionList.includes("delete"))
     {
         addDeleteButton(lineToUpdateDOM);
     } else
@@ -86,9 +88,9 @@ $(document).ready(function() {
     urlUsersController = $("#urlUsers").val();
     urlRolesController = $("#urlRoles").val();
     selectRolesDOM = $("#role-select");
-    notificationTemplate = $("#notificationTemplate").removeClass("allsafe-modele");
-    buttonDeleteTemplate = $("#buttonDeleteTemplate").removeClass("allsafe-modele");
-    buttonUpdateTemplate = $("#buttonUpdateTemplate").removeClass("allsafe-modele");
+    notificationTemplate = $("#notificationTemplate");
+    buttonDeleteTemplate = $("#buttonDeleteTemplate");
+    buttonUpdateTemplate = $("#buttonUpdateTemplate");
     dataTableDOM = $("#usersTable");
 
     $("#notificationTemplate button").click(

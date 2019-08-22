@@ -17,9 +17,11 @@ TODO : users can search user by their name, role, register date, state
     </div>
 </div>
 <div id="usersTable">
-    <input type="button" id="buttonUpdateTemplate" class="btn-success allsafe-update allsafe-modele" value="Update" data-toggle="modal"
+    <input type="button" id="buttonUpdateTemplate" class="btn-success allsafe-update allsafe-modele" value="Update"
+           data-toggle="modal"
            data-target="#updateModal"/>
-    <input type="button" id="buttonDeleteTemplate" class="btn-danger allsafe-delete allsafe-modele" value="Delete" data-toggle="modal"
+    <input type="button" id="buttonDeleteTemplate" class="btn-danger allsafe-delete allsafe-modele" value="Delete"
+           data-toggle="modal"
            data-target="#deleteModal"/>
     <table class="table table-bordered">
         <thead class="thead-dark">
@@ -51,21 +53,32 @@ TODO : users can search user by their name, role, register date, state
                         <c:choose>
                             <c:when test="${user.logged}">
                                 badge-primary">Logged</span>
-                        </c:when>
-                        <c:otherwise>
-                            badge-secondary">Disconnected</span>
-                        </c:otherwise>
+                            </c:when>
+                            <c:otherwise>
+                                badge-secondary">Disconnected</span>
+                            </c:otherwise>
                         </c:choose>
                     </td>
-                    <as:hasRight executorRole="${sessionScope.userSession.role}" action="update"
-                                 affectedRole="${user.role}">
-                        <td><input type="button" class="btn-success allsafe-update" value="Update" data-toggle="modal"
-                                   data-target="#updateModal"/></td>
+                    <!-- TODO : display update and delete cells for moderator and admin -->
+                    <as:hasRight executorRole="${sessionScope.userSession.role}" action="update">
+                        <td>
+                            <as:hasRight executorRole="${sessionScope.userSession.role}" action="update"
+                                         affectedRole="${user.role}">
+                                <input type="button" class="btn-success allsafe-update" value="Update"
+                                       data-toggle="modal"
+                                       data-target="#updateModal"/>
+                            </as:hasRight>
+                        </td>
                     </as:hasRight>
-                    <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete"
-                                 affectedRole="${user.role}">
-                        <td><input type="button" class="btn-danger allsafe-delete" value="Delete" data-toggle="modal"
-                                   data-target="#deleteModal"/></td>
+                    <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete">
+                        <td>
+                            <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete"
+                                         affectedRole="${user.role}">
+                                <input type="button" class="btn-danger allsafe-delete" value="Delete"
+                                       data-toggle="modal"
+                                       data-target="#deleteModal"/>
+                            </as:hasRight>
+                        </td>
                     </as:hasRight>
                 </tr>
             </c:forEach>
