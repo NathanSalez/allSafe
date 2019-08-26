@@ -1,8 +1,6 @@
 <%--
-later : the data table shows 20 users per part.
-later : users can change part.
 TODO : users can delete other user
-TODO : users can search user by their name, role, register date, state
+TODO : users can search user by their name, role, register date, state with jquery datable
  --%>
 <h1>Users Table</h1>
 <div id="allsafe-notifications">
@@ -23,7 +21,7 @@ TODO : users can search user by their name, role, register date, state
     <input type="button" id="buttonDeleteTemplate" class="btn-danger allsafe-delete allsafe-modele" value="Delete"
            data-toggle="modal"
            data-target="#deleteModal"/>
-    <table class="table table-bordered">
+    <table id="dataTableUser" class="table table-bordered">
         <thead class="thead-dark">
         <tr>
             <th>Id</th>
@@ -59,7 +57,6 @@ TODO : users can search user by their name, role, register date, state
                             </c:otherwise>
                         </c:choose>
                     </td>
-                    <!-- TODO : display update and delete cells for moderator and admin -->
                     <as:hasRight executorRole="${sessionScope.userSession.role}" action="update">
                         <td>
                             <as:hasRight executorRole="${sessionScope.userSession.role}" action="update"

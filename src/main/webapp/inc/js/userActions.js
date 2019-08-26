@@ -91,7 +91,8 @@ $(document).ready(function() {
     notificationTemplate = $("#notificationTemplate");
     buttonDeleteTemplate = $("#buttonDeleteTemplate");
     buttonUpdateTemplate = $("#buttonUpdateTemplate");
-    dataTableDOM = $("#usersTable");
+    dataTableDOM = $("#dataTableUser");
+    //dataTableDOM.DataTable();
 
     $("#notificationTemplate button").click(
         function() // delete notification
@@ -162,7 +163,6 @@ $(document).ready(function() {
                         if( response.feedback === "ok")
                         {
                             // TODO : if current session user is updated, refresh page.
-                            // TODO : actualizes update and delete fields for affected user
                             var userPseudo = response.update.affectedUser;
                             var message = "User <strong>" + userPseudo + "</strong> successfully updated";
                             addNotification("success",message);
