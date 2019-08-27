@@ -163,12 +163,11 @@ $(document).ready(function() {
                         if( response.feedback === "ok")
                         {
                             // TODO : if current session user is updated, refresh page.
-                            var userPseudo = response.update.affectedUser;
-                            var message = "User <strong>" + userPseudo + "</strong> successfully updated";
+                            var message = "User <strong>" + input.pseudo + "</strong> successfully updated";
                             addNotification("success",message);
-                            var lineToUpdateDOM = $("td:contains(" + userPseudo + ")",dataTableDOM).parent();
+                            var lineToUpdateDOM = $("td:contains(" + input.pseudo + ")",dataTableDOM).parent();
                             var roleToUpdateDOM = $("td:nth-child(4)",lineToUpdateDOM);
-                            roleToUpdateDOM.html(response.update.newRole);
+                            roleToUpdateDOM.html(input.newRole);
                             actualizesActionButtons(lineToUpdateDOM,response.possibleActionsOnUser);
                         }
                         else
@@ -186,7 +185,9 @@ $(document).ready(function() {
     $(".allsafe-delete").click(
         function()
         {
-            //TODO : insert selected user in modal's input delete
+            var line = $(this).parent().parent();
+            var pseudo = $(".allsafe-pseudo",line).html();
+            $("#pseudoToDelete").val(pseudo);
         }
     );
 
@@ -194,7 +195,38 @@ $(document).ready(function() {
     $("#allsafe-delete-user").click(
         function()
         {
-            // TODO : make ajax request to delete user.
+            var input = {
+                pseudo: $("#pseudoToDelete").val(),
+                token : $("#securityToken").val(),
+                action: "deleteUser"
+            };
+            $.ajax(
+                {
+                    url:urlUsersController,
+                    method: "post",
+                    dataType:"json",
+                    data:input,
+                    success : function(response)
+                    {
+                        console.log(response);
+                        response =
+                            {
+                                "feedback" : "ok"
+                            };
+                        if( response.feedback === "ok")
+                        {
+                            addNotification("success","User <strong>" + input.pseudo + "</strong> deleted.");
+                            var lineToDeleteDOM = $("td:contains(" +input.pseudo + ")",dataTableDOM).parent();
+                            lineToDeleteDOM.remove();
+
+                        } else
+                        {
+                            addNotification("warning", response.error);
+                        }
+                    }
+
+                }
+            )
         }
     );
 

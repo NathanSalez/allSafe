@@ -47,6 +47,7 @@ public class UsersAjaxController extends HttpServlet {
                 break;
 
             case "deleteUser" :
+                jsonResponse = doPostDeleteUser(request);
                 break;
 
             default:
@@ -94,13 +95,9 @@ public class UsersAjaxController extends HttpServlet {
     private String doPostUpdateUserRole(HttpServletRequest request)
     {
         Map<String,Object> mapResponse = new HashMap<>();
-        Map<String,Object> updateInfos = new HashMap<>();
         String pseudoAffectedUser = request.getParameter("pseudo");
         Role currentRole = Role.getRole(request.getParameter("currentRole"));
         Role newRole = Role.getRole(request.getParameter("newRole"));
-        updateInfos.put("affectedUser", pseudoAffectedUser);
-        updateInfos.put("newRole",newRole.name());
-        mapResponse.put("update",updateInfos);
         mapResponse.put("feedback","ko");
         if( SecurityUtils.checkRequest(request) )
         {
@@ -121,6 +118,12 @@ public class UsersAjaxController extends HttpServlet {
         }
 
         return new Gson().toJson(mapResponse);
+    }
+
+    private String doPostDeleteUser(HttpServletRequest request)
+    {
+        // TODO : delete user (back side)
+        return new Gson().toJson(request.getParameterMap());
     }
 
     private String doMethodError()
