@@ -2,105 +2,14 @@
 var urlRolesController = "";
 var urlUsersController ="";
 var selectRolesDOM = undefined;
-var notificationTemplate = undefined;
-var notificationContainerDOM = undefined;
 var dataTableDOM = undefined;
-var buttonUpdateTemplate = undefined;
-var buttonDeleteTemplate = undefined;
-
-/**
- *
- * @param level a string in the set {"success","warning","danger"}
- * @param message the string contained in the new notification. Can contain HTML text.
- */
-var addNotification = function(level,message)
-{
-    var newNotificationDOM = notificationTemplate.clone(true).removeClass("allsafe-modele");
-    if( level === undefined || typeof level !== "string")
-    {
-        level = "danger";
-    }
-    if( message === undefined || typeof message !== "string")
-    {
-        message = "Warning ! No message found.";
-    }
-    newNotificationDOM
-        .addClass("alert-" + level);
-    $(".allsafe-message",newNotificationDOM).html(message);
-    notificationContainerDOM.prepend(newNotificationDOM);
-};
-
-var addUpdateButton = function(lineToUpdateDOM)
-{
-    var buttonContainer = $("td:nth-child(7)",lineToUpdateDOM);
-    if( buttonContainer === undefined)
-    {
-        throw Error("addUpdateButton - 7th child of line to update not found.");
-    } else
-    {
-        if( !buttonContainer.html().includes("<input"))
-            buttonContainer.append(buttonUpdateTemplate.clone(true).removeClass("allsafe-modele"));
-    }
-};
-
-var addDeleteButton = function(lineToUpdateDOM)
-{
-    var buttonContainer = $("td:nth-child(8)",lineToUpdateDOM);
-    if( buttonContainer === undefined)
-    {
-        throw Error("addUpdateButton - 8th child of line to update not found.");
-    } else
-    {
-        if( !buttonContainer.html().includes("<input"))
-            buttonContainer.append(buttonDeleteTemplate.clone(true).removeClass("allsafe-modele"));
-    }
-};
-
-var removeUpdateButton = function(lineToUpdateDOM)
-{
-    $("td:nth-child(7)",lineToUpdateDOM).empty();
-};
-
-var removeDeleteButton = function(lineToUpdateDOM)
-{
-    $("td:nth-child(8)",lineToUpdateDOM).empty();
-};
-
-var actualizesActionButtons = function(lineToUpdateDOM,actionList)
-{
-    if(actionList.includes("update"))
-    {
-        addUpdateButton(lineToUpdateDOM);
-    } else
-    {
-        removeUpdateButton(lineToUpdateDOM)
-    }
-    if(actionList.includes("delete"))
-    {
-        addDeleteButton(lineToUpdateDOM);
-    } else
-    {
-        removeDeleteButton(lineToUpdateDOM);
-    }
-};
 
 $(document).ready(function() {
     urlUsersController = $("#urlUsers").val();
     urlRolesController = $("#urlRoles").val();
     selectRolesDOM = $("#role-select");
-    notificationTemplate = $("#notificationTemplate");
-    buttonDeleteTemplate = $("#buttonDeleteTemplate");
-    buttonUpdateTemplate = $("#buttonUpdateTemplate");
     dataTableDOM = $("#dataTableUser");
     //dataTableDOM.DataTable();
-
-    $("#notificationTemplate button").click(
-        function() // delete notification
-        {
-            $(this).parent().remove();
-        }
-    );
-    notificationContainerDOM = $("#allsafe-notification-container");
 
     // AJAX : insert selected user in modal's input and select new possible roles.
     $(".allsafe-update").click(
@@ -229,7 +138,5 @@ $(document).ready(function() {
             )
         }
     );
-
-
-
+    console.log("userActions.js downloaded.");
 });

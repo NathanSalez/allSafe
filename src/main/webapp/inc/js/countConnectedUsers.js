@@ -39,4 +39,5 @@ $(document).ready(function() {
     );
 
     getNbLoggedUsers();
+    console.log("countConnectedUsers.js downloaded.");
 });

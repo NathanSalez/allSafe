@@ -29,7 +29,7 @@ function wireUpEvents() {
         if (!validNavigation) {
             endSession();
         }
-    }
+    };
 
     // Attach the event click for all links in the page
     $("a").bind("click", function() {
@@ -47,4 +47,5 @@ function wireUpEvents() {
 $(document).ready(function() {
     wireUpEvents();
     urlDisconnect = $("#urlDisconnect").val();
+    console.log("autoLogOff.js downloaded.");
 });

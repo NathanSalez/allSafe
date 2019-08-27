@@ -7,6 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="<c:url value="/inc/js/autoLogOff.js" />"></script>
 <script type="text/javascript" src="<c:url value="/inc/js/countConnectedUsers.js" />"></script>
+<script type="text/javascript" src="<c:url value="/inc/js/Notifications.js" />"></script>
 <script type="text/javascript" src="<c:url value="/inc/js/userActions.js" />"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 </body>
