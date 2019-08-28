@@ -11,7 +11,6 @@
                     <label for="pseudo" class="col-form-label" >Pseudo</label>
                     <input type="text" class="form-control text-center allsafe-input" disabled id="pseudo" />
                 </div>
-                <input type="hidden" id="currentRole" />
                 <div class="form-group">
                     <label for="role-select" class="col-form-label">Role</label>
                     <select id="role-select" class="custom-select text-center">

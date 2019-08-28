@@ -30,6 +30,13 @@ public class SecurityUtils {
         if( request == null)
             throw new IllegalArgumentException("param request must be not null.");
 
-        return request.getParameter(TOKEN_FIELD).equals(request.getSession().getAttribute(TOKEN_FIELD));
+        String token = request.getParameter(TOKEN_FIELD);
+        if( token == null)
+            return false;
+
+        if( request.getSession() == null)
+            return false;
+
+        return token.equals(request.getSession().getAttribute(TOKEN_FIELD));
     }
 }

@@ -24,6 +24,12 @@ public class User implements Comparable<User> {
     public User() {
     }
 
+    public User(String pseudo, Role role)
+    {
+        this.pseudo = pseudo;
+        this.role = role;
+    }
+
     public User(String pseudo, String password) {
         this.pseudo = pseudo;
         this.password = password;

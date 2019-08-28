@@ -6,7 +6,6 @@ import model.User;
 import java.util.Collection;
 
 public interface UserDao{
-
     void create( User user ) throws DAOException;
 
     User find( String pseudo) throws DAOException;

@@ -14,7 +14,6 @@ import static utils.SessionUtils.USER_SESSION_FIELD;
 @WebFilter("/accessible/*")
 public class LoggedFilter implements Filter {
 
-    private static final String VIEW_LOGGED = "/WEB-INF/index.jsp";
     public void destroy() {
     }
 

@@ -84,6 +84,8 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
 
     @Override
     public User find(String pseudo) throws DAOException {
+        if( pseudo == null)
+            return null;
         Connection connection = null;
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;

@@ -1,8 +1,9 @@
 <%--
 TODO : users can delete other user
-TODO : users can search user by their name, role, register date, state with jquery datable
+TODO : users can search user by their name, role, register date, state with jquery datatzble
  --%>
 <h1>Users Table</h1>
+<%-- TODO : make a responsive notification container --%>
 <div id="allsafe-notifications">
     <h2>Notifications</h2>
     <div id="allsafe-notification-container">

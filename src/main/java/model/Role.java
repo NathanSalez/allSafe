@@ -8,7 +8,8 @@ package model;
 public enum Role {
     ADMIN("Administrator"),
     MODERATOR("Moderator"),
-    SIMPLE("Simple user");
+    SIMPLE("Simple user"),
+    NOT_FOUND("Role not found");
 
     private String description;
 
@@ -22,8 +23,11 @@ public enum Role {
             case "MODERATOR" :
                 return MODERATOR;
 
-            default :
+            case "SIMPLE" :
                 return SIMPLE;
+
+            default :
+                return NOT_FOUND;
         }
     }
 

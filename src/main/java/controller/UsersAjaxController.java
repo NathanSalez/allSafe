@@ -96,21 +96,17 @@ public class UsersAjaxController extends HttpServlet {
     {
         Map<String,Object> mapResponse = new HashMap<>();
         String pseudoAffectedUser = request.getParameter("pseudo");
-        Role currentRole = Role.getRole(request.getParameter("currentRole"));
         Role newRole = Role.getRole(request.getParameter("newRole"));
         mapResponse.put("feedback","ko");
         if( SecurityUtils.checkRequest(request) )
         {
-            User affectedUser = new User();
-            affectedUser.setPseudo(pseudoAffectedUser);
-            affectedUser.setRole(currentRole);
             User executorUser = (User) SessionUtils.getFieldValue(request,SessionUtils.USER_SESSION_FIELD);
-            if( userManagementService.updateUserRole(executorUser,affectedUser,newRole) ) {
+            if( userManagementService.updateUserRole(executorUser,pseudoAffectedUser,newRole) ) {
                 mapResponse.put("feedback", "ok");
                 mapResponse.put("possibleActionsOnUser",roleService.getPossibleActions(executorUser.getRole(),newRole));
             } else
             {
-                mapResponse.put("error","User not updated, check your rights.");
+                mapResponse.put("error",userManagementService.getErrors().get("error"));
             }
         } else
         {
@@ -122,8 +118,24 @@ public class UsersAjaxController extends HttpServlet {
 
     private String doPostDeleteUser(HttpServletRequest request)
     {
-        // TODO : delete user (back side)
-        return new Gson().toJson(request.getParameterMap());
+        Map<String,Object> mapResponse = new HashMap<>();
+        String pseudoToDelete = request.getParameter("pseudo");
+        mapResponse.put("feedback","ko");
+        if( SecurityUtils.checkRequest(request) )
+        {
+            User executorUser = (User) SessionUtils.getFieldValue(request,SessionUtils.USER_SESSION_FIELD);
+            if( userManagementService.deleteUser(executorUser, pseudoToDelete) )
+            {
+                mapResponse.put("feedback", "ok");
+            } else
+            {
+                mapResponse.put("error",userManagementService.getErrors().get("error"));
+            }
+        } else
+        {
+            mapResponse.put("error","Request sent is vulnerable against CSRF.");
+        }
+        return new Gson().toJson(mapResponse);
     }
 
     private String doMethodError()

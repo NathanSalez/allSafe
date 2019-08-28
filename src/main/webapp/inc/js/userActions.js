@@ -18,9 +18,7 @@ $(document).ready(function() {
             selectRolesDOM.empty();
             var line = $(this).parent().parent();
             var pseudo = $(".allsafe-pseudo",line).html();
-            var currentRole = $(".allsafe-role",line).html();
             $("#pseudo").val(pseudo);
-            $("#currentRole").val(currentRole);
             var input = {
                 "affectedRole" : $(".allsafe-role",line).html()
             };
@@ -55,7 +53,6 @@ $(document).ready(function() {
         {
             var input = {
                 pseudo: $("#pseudo").val(),
-                currentRole : $("#currentRole").val(),
                 newRole: $("#role-select option:selected").val(),
                 token : $("#securityToken").val(),
                 action: "updateUser"
@@ -96,6 +93,7 @@ $(document).ready(function() {
         {
             var line = $(this).parent().parent();
             var pseudo = $(".allsafe-pseudo",line).html();
+            var role = $(".allsafe-role",line).html();
             $("#pseudoToDelete").val(pseudo);
         }
     );
@@ -105,7 +103,7 @@ $(document).ready(function() {
         function()
         {
             var input = {
-                pseudo: $("#pseudoToDelete").val(),
+                pseudo : $("#pseudoToDelete").val(),
                 token : $("#securityToken").val(),
                 action: "deleteUser"
             };
