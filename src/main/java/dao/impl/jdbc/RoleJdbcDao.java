@@ -31,7 +31,10 @@ public class RoleJdbcDao extends JdbcDAO<Role> implements RoleDao {
         mapper = new RowMapper<Role>() {
             @Override
             public Role map(ResultSet rs) throws SQLException {
-                return Role.getRole(rs.getString(1));
+                Role r = new Role();
+                r.setCode( rs.getString("code"));
+                r.setDescription( rs.getString("description"));
+                return r;
             }
         };
     }
@@ -87,7 +90,7 @@ public class RoleJdbcDao extends JdbcDAO<Role> implements RoleDao {
 
     @Override
     public Role[] findAll() throws DAOException {
-        return Role.values();
+        return null;
     }
 
     @Override
@@ -98,7 +101,7 @@ public class RoleJdbcDao extends JdbcDAO<Role> implements RoleDao {
         ArrayList<Role> newPossibleRoles = new ArrayList<>(3);
         try {
             connection = daoFactory.getConnection();
-            pstmt = DaoUtils.buildPreparedStatement(connection, GET_POSSIBLE_ROLES_QUERY, false, executorRole.name(), affectedRole.name() );
+            pstmt = DaoUtils.buildPreparedStatement(connection, GET_POSSIBLE_ROLES_QUERY, false, executorRole.getCode(), affectedRole.getCode() );
             resultSet = pstmt.executeQuery();
             while(resultSet.next()) {
                 newPossibleRoles.add(mapper.map(resultSet));
@@ -119,7 +122,7 @@ public class RoleJdbcDao extends JdbcDAO<Role> implements RoleDao {
         ArrayList<String> possibleActions = new ArrayList<>();
         try {
             connection = daoFactory.getConnection();
-            pstmt = DaoUtils.buildPreparedStatement(connection, GET_POSSIBLE_ACTIONS_QUERY, false, executorRole.name(), affectedRole.name() );
+            pstmt = DaoUtils.buildPreparedStatement(connection, GET_POSSIBLE_ACTIONS_QUERY, false, executorRole.getCode(), affectedRole.getCode() );
             resultSet = pstmt.executeQuery();
             while(resultSet.next()) {
                 possibleActions.add( resultSet.getString(1));

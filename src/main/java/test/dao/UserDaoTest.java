@@ -109,7 +109,7 @@ class UserDaoTest {
     void updateRole() {
         User uRegistered = usersTest.get(0);
         User uNotRegistered = usersTest.get(1);
-        assertDoesNotThrow(() -> userDao.updateRole(uRegistered.getPseudo(), Role.ADMIN ));
-        assertThrows(DAOException.class, () -> userDao.updateRole(uNotRegistered.getPseudo(),Role.ADMIN));
+        assertDoesNotThrow(() -> userDao.updateRole(uRegistered.getPseudo(), new Role("ADMIN","Administrator") ));
+        assertThrows(DAOException.class, () -> userDao.updateRole(uNotRegistered.getPseudo(),new Role("ADMIN","Administrator")));
     }
 }

@@ -21,7 +21,7 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
 
     private DAOFactory daoFactory;
 
-    private static final String SELECT_USER = "SELECT * FROM users WHERE pseudo = ?";
+    private static final String SELECT_USER = "SELECT * FROM users INNER JOIN roles ON users.role = roles.code WHERE users.pseudo = ?";
 
     private static final String INSERT_USER = "INSERT INTO users(pseudo,password,date_inscription,role) values(?,?,NOW(),'SIMPLE')";
 
@@ -31,7 +31,7 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
 
     private static final String UPDATE_USER_ROLE = "UPDATE users set role = ? where pseudo = ?";
 
-    private static final String SELECT_ALL_USERS = "SELECT * FROM users";
+    private static final String SELECT_ALL_USERS = "SELECT * FROM users INNER JOIN roles ON users.role = roles.code";
 
     private static final String COUNT_LOGGED_USERS = "SELECT COUNT(*) AS LOGGED_USERS FROM users where logged = 1";
 
@@ -46,9 +46,12 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
                 u.setId(rs.getLong("id"));
                 u.setPseudo(rs.getString("pseudo"));
                 u.setPassword(rs.getString("password"));
-                u.setRole(Role.getRole((String) rs.getObject("role")));
                 u.setRegisterDate(rs.getDate("date_inscription"));
                 u.setLogged( rs.getBoolean("logged"));
+                Role r = new Role();
+                r.setCode( rs.getString("code"));
+                r.setDescription( rs.getString("description"));
+                u.setRole(r);
                 return u;
             }
         };
@@ -113,7 +116,7 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
 
     @Override
     public void updateRole(String pseudo, Role newRole) throws DAOException {
-        updateUser(UPDATE_USER_ROLE,newRole.name(),pseudo);
+        updateUser(UPDATE_USER_ROLE,newRole.getCode(),pseudo);
     }
 
     private void updateUser(String request, Object... args)

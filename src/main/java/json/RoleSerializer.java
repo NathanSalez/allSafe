@@ -16,7 +16,7 @@ public class RoleSerializer implements JsonSerializer<Role> {
     @Override
     public JsonElement serialize(Role role, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject jsonRole = new JsonObject();
-        jsonRole.addProperty("name",role.name());
+        jsonRole.addProperty("name",role.getCode());
         jsonRole.addProperty("description",role.getDescription());
         return jsonRole;
     }
