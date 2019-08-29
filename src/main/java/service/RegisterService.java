@@ -63,7 +63,7 @@ public class RegisterService extends AbstractService {
         managePseudo(pseudo);
         managePassword(password);
         manageConfirmPassword(password,confirmPassword);
-        newUser.setRole(Role.SIMPLE);
+        newUser.setRole( new Role("SIMPLE","Simple user"));
 
         if( errors.isEmpty() )
         {

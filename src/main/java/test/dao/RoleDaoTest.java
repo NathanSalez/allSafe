@@ -16,6 +16,10 @@ class RoleDaoTest {
 
     private static RoleDao roleDao;
 
+    static Role modo = new Role("MODERATOR","Moderator");
+    static Role simple = new Role("SIMPLE","Simple user");
+    static Role admin = new Role("ADMIN","Administrator");
+
     @org.junit.jupiter.api.BeforeAll
     public static void setUpBeforeClass()
     {
@@ -23,27 +27,30 @@ class RoleDaoTest {
         roleDao = daoFactory.getRoleDao();
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void hasTheRightTo() {
-        assertTrue( roleDao.hasTheRightTo(Role.ADMIN,"updateAs",Role.MODERATOR,Role.ADMIN));
-        assertFalse( roleDao.hasTheRightTo(Role.ADMIN,null, Role.MODERATOR,Role.ADMIN ));
-        assertFalse( roleDao.hasTheRightTo(null,"updateAs", Role.MODERATOR,Role.ADMIN ));
-        assertFalse( roleDao.hasTheRightTo(null,null, Role.MODERATOR,Role.ADMIN ));
-        assertTrue( roleDao.hasTheRightTo(Role.MODERATOR,"delete",Role.SIMPLE,null));
+        assertTrue( roleDao.hasTheRightTo(admin,"updateAs",modo,admin));
+        assertFalse( roleDao.hasTheRightTo(admin,null, modo,admin ));
+        assertFalse( roleDao.hasTheRightTo(null,"updateAs", modo,admin ));
+        assertFalse( roleDao.hasTheRightTo(null,null, modo,admin ));
+        assertTrue( roleDao.hasTheRightTo(modo,"delete",simple,null));
     }
 
     @org.junit.jupiter.api.Test
     void findAll() {
-        Role[] allRoles = Role.values();
+        Role[] allRoles = new Role[3];
+        allRoles[0] = simple;
+        allRoles[1] = modo;
+        allRoles[2] = admin;
         assertArrayEquals(allRoles, roleDao.findAll());
     }
 
     @org.junit.jupiter.api.Test
     void getNewPossibleRoles() {
         ArrayList<Role> expectedRoles = new ArrayList<>(2);
-        expectedRoles.add( Role.SIMPLE);
-        expectedRoles.add(Role.ADMIN);
-        Collection<Role> obtainedRoles = roleDao.getNewPossibleRoles(Role.ADMIN,Role.MODERATOR);
+        expectedRoles.add(simple);
+        expectedRoles.add(admin);
+        Collection<Role> obtainedRoles = roleDao.getNewPossibleRoles(admin,modo);
         assertArrayEquals(expectedRoles.toArray(),obtainedRoles.toArray());
     }
 
@@ -53,7 +60,7 @@ class RoleDaoTest {
         expectedActions.add("updateAs");
         expectedActions.add("delete");
         expectedActions.add("update");
-        Collection<String> obtainedActions = roleDao.getPossibleActions(Role.ADMIN,Role.MODERATOR);
+        Collection<String> obtainedActions = roleDao.getPossibleActions(new Role("ADMIN","Administrator"),new Role("MODERATOR","Moderator"));
         Set<String> obtainedActionsToSet = new HashSet<>(obtainedActions);
         assertArrayEquals(expectedActions.toArray(),obtainedActionsToSet.toArray());
     }

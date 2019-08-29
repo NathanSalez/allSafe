@@ -24,19 +24,19 @@ public class RightsTag extends BodyTagSupport {
     private Role newRole;
 
     public void setExecutorRole(String executorRole) {
-        this.executorRole = Role.getRole(executorRole);
-    }
+        this.executorRole = null; // Role.getRole(executorRole);
+    } // TODO : role
 
     public void setAction(String action) {
         this.action = action;
     }
 
     public void setAffectedRole(String affectedRole) {
-        this.affectedRole = Role.getRole(affectedRole);
+        this.affectedRole = null; // Role.getRole(affectedRole);
     }
 
     public void setNewRole(String newRole) {
-        this.newRole = Role.getRole(newRole);
+        this.newRole = null; //Role.getRole(newRole);
     }
 
     private void getInstanceRoleDao()
