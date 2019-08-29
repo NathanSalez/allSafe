@@ -7,9 +7,7 @@ import model.Role;
 import model.User;
 
 import java.util.Collection;
-/**
- * TODO : rewrite RoleDao and RightDao
- */
+// TODO : rewrite RoleDao and RightDao
 
 /**
  * @author Nathan Salez

@@ -3,7 +3,6 @@ var urlRolesController = "";
 var urlUsersController ="";
 var selectRolesDOM = undefined;
 var dataTableDOM = undefined;
-
 $(document).ready(function() {
     urlUsersController = $("#urlUsers").val();
     urlRolesController = $("#urlRoles").val();
@@ -68,7 +67,10 @@ $(document).ready(function() {
                         console.log(response);
                         if( response.feedback === "ok")
                         {
-                            // TODO : if current session user is updated, refresh page.
+                            if( response.currentUserUpdated === true)
+                            {
+                                window.location.reload();
+                            }
                             var message = "User <strong>" + input.pseudo + "</strong> successfully updated";
                             addNotification("success",message);
                             var lineToUpdateDOM = $("td:contains(" + input.pseudo + ")",dataTableDOM).parent();

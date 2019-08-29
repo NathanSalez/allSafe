@@ -103,6 +103,13 @@ public class UsersAjaxController extends HttpServlet {
             User executorUser = (User) SessionUtils.getFieldValue(request,SessionUtils.USER_SESSION_FIELD);
             if( userManagementService.updateUserRole(executorUser,pseudoAffectedUser,newRole) ) {
                 mapResponse.put("feedback", "ok");
+                if( executorUser != null && executorUser.getPseudo().equals(pseudoAffectedUser) )
+                {
+                    executorUser.setRole(newRole);
+                    mapResponse.put("currentUserUpdated", true );
+                } else {
+                    mapResponse.put("currentUserUpdated", false );
+                }
                 mapResponse.put("possibleActionsOnUser",roleService.getPossibleActions(executorUser.getRole(),newRole));
             } else
             {
