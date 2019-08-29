@@ -1,5 +1,4 @@
 <%--
-TODO : users can delete other user
 TODO : users can search user by their name, role, register date, state with jquery datatzble
  --%>
 <h1>Users Table</h1>
