@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 public class CookieUtils {
 
     public static final int COOKIE_MAX_AGE = 60 * 60 * 24 * 365;  // 1 year
+    // TODO : create CookieDao that allow website to get cookie stored in database
+    public static final String COOKIE_CONNEXION_FIELD = "co";
     /**
      *
      * @param response

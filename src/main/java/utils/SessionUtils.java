@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 public class SessionUtils {
     public static final String USER_SESSION_FIELD = "userSession";
 
+    public static final String COOKIE_VERIFICATION_FIELD = "safeCookie";
+
 
     /**
      *

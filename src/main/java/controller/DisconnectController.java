@@ -31,6 +31,7 @@ public class DisconnectController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        // TODO : remove cookie if present in navigator, before invalidating session.
         session.invalidate();
         String urlRedirection = URL_BASE + request.getContextPath() + "/accessible/login";
         response.sendRedirect(urlRedirection);

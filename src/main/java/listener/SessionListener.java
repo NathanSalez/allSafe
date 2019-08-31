@@ -44,6 +44,7 @@ public class SessionListener implements HttpSessionListener, ServletContextListe
         if( u != null) {
             System.out.println("SessionListener.Destroyed - Destroyed Session for user " + u.getPseudo());
             userDao.updateState(u.getPseudo(),false);
+            // TODO : register cookie if needed
         }
     }
 }

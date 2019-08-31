@@ -17,11 +17,15 @@ import static controller.BaseController.VIEW_FIELD_NAME;
 import static utils.SessionUtils.USER_SESSION_FIELD;
 
 import model.User;
+import utils.CookieUtils;
+import utils.SessionUtils;
 
 @WebServlet("/accessible/login")
 public class LoginController extends HttpServlet {
 
     private final static String VIEW_NOT_LOGGED = "/WEB-INF/template/accessible/login.jsp";
+
+    public final static String COOKIE_SESSION_CONNEXION_COMMON_VALUE="ok";
 
     private LoginService loginService;
 
@@ -40,15 +44,14 @@ public class LoginController extends HttpServlet {
             session.setAttribute(USER_SESSION_FIELD,loggedUser);
             if( loginService.isStayLogged() )
             {
-                // TODO : creation of cookie that will last 1 year, with a session id for security.
-                /*DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String todayDateToString = dateFormat.format(new Date());
-                CookieUtils.setCookie(response, CookieUtils.LAST_CONNEXION_FIELD, todayDateToString);*/
+                // TODO : creation of cookie that will last 1 year, with a randomly-generated session id.
+                /*CookieUtils.setCookie(response, CookieUtils.COOKIE_CONNEXION_FIELD,COOKIE_SESSION_CONNEXION_COMMON_VALUE,CookieUtils.COOKIE_MAX_AGE);
+                session.setAttribute(SessionUtils.COOKIE_VERIFICATION_FIELD,true);*/
             }
             else
             {
                 // TODO : cookie will be deleted at the navigator's close.
-                //CookieUtils.setCookie( response, CookieUtils.LAST_CONNEXION_FIELD, "", -1 );
+                // CookieUtils.setCookie( response, CookieUtils.COOKIE_CONNEXION_FIELD, COOKIE_SESSION_CONNEXION_COMMON_VALUE, -1 );
             }
             String urlRedirection = DisconnectController.URL_BASE + request.getContextPath() + "/restrictive/users/management";
             response.sendRedirect(urlRedirection);
