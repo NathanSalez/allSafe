@@ -24,19 +24,19 @@ public class RightsTag extends BodyTagSupport {
     private Role newRole;
 
     public void setExecutorRole(String executorRole) {
-        this.executorRole = null; // Role.getRole(executorRole);
-    } // TODO : role
+        this.executorRole = new Role(executorRole);
+    }
 
     public void setAction(String action) {
         this.action = action;
     }
 
     public void setAffectedRole(String affectedRole) {
-        this.affectedRole = null; // Role.getRole(affectedRole);
+        this.affectedRole = new Role(affectedRole);
     }
 
     public void setNewRole(String newRole) {
-        this.newRole = null; //Role.getRole(newRole);
+        this.newRole = new Role(newRole);
     }
 
     private void getInstanceRoleDao()
@@ -47,6 +47,7 @@ public class RightsTag extends BodyTagSupport {
     @Override
     public int doStartTag() throws JspException {
         getInstanceRoleDao();
+        //System.out.println("RightsTag - parameters : executorRole=" +executorRole.getCode()+"&action=" + action + "&affectedRole=" + affectedRole.getCode());
         if( roleDao.hasTheRightTo(executorRole,action,affectedRole,newRole))
         {
             return EVAL_BODY_INCLUDE;

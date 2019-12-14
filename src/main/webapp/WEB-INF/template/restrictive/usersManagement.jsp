@@ -30,10 +30,10 @@ TODO : users can search user by their name, role, register date, state with jque
             <th>Role</th>
             <th>Register date</th>
             <th>State</th>
-            <as:hasRight executorRole="${sessionScope.userSession.role}" action="update">
+            <as:hasRight executorRole="${sessionScope.userSession.role.code}" action="update">
                 <th>Update</th>
             </as:hasRight>
-            <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete">
+            <as:hasRight executorRole="${sessionScope.userSession.role.code}" action="delete">
                 <th>Delete</th>
             </as:hasRight>
         </tr>
@@ -57,20 +57,20 @@ TODO : users can search user by their name, role, register date, state with jque
                             </c:otherwise>
                         </c:choose>
                     </td>
-                    <as:hasRight executorRole="${sessionScope.userSession.role}" action="update">
+                    <as:hasRight executorRole="${sessionScope.userSession.role.code}" action="update">
                         <td>
-                            <as:hasRight executorRole="${sessionScope.userSession.role}" action="update"
-                                         affectedRole="${user.role}">
+                            <as:hasRight executorRole="${sessionScope.userSession.role.code}" action="update"
+                                         affectedRole="${user.role.code}">
                                 <input type="button" class="btn-success allsafe-update" value="Update"
                                        data-toggle="modal"
                                        data-target="#updateModal"/>
                             </as:hasRight>
                         </td>
                     </as:hasRight>
-                    <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete">
+                    <as:hasRight executorRole="${sessionScope.userSession.role.code}" action="delete">
                         <td>
-                            <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete"
-                                         affectedRole="${user.role}">
+                            <as:hasRight executorRole="${sessionScope.userSession.role.code}" action="delete"
+                                         affectedRole="${user.role.code}">
                                 <input type="button" class="btn-danger allsafe-delete" value="Delete"
                                        data-toggle="modal"
                                        data-target="#deleteModal"/>
@@ -89,10 +89,10 @@ TODO : users can search user by their name, role, register date, state with jque
             <td><input class="form-control" type="text" placeholder="Role"/></td>
             <td><input class="form-control" type="text" placeholder="Register date"/></td>
             <td></td>
-            <as:hasRight executorRole="${sessionScope.userSession.role}" action="update">
+            <as:hasRight executorRole="${sessionScope.userSession.role.code}" action="update">
                 <td></td>
             </as:hasRight>
-            <as:hasRight executorRole="${sessionScope.userSession.role}" action="delete">
+            <as:hasRight executorRole="${sessionScope.userSession.role.code}" action="delete">
                 <td></td>
             </as:hasRight>
         </tr>

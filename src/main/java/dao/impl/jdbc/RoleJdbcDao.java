@@ -60,17 +60,17 @@ public class RoleJdbcDao extends JdbcDAO<Role> implements RoleDao {
         if( executorRole == null || action == null || action.isEmpty())
             return false;
 
-        args.add(executorRole.toString());
+        args.add(executorRole.getCode());
         args.add(action);
 
         if( affectedRole != null )
         {
             sql += " and affectedRole = ?";
-            args.add(affectedRole.toString());
+            args.add(affectedRole.getCode());
             if( newRole != null)
             {
                 sql += " and newRole = ?";
-                args.add(newRole.toString());
+                args.add(newRole.getCode());
             }
         }
         try {

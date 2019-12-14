@@ -37,7 +37,7 @@ public class RoleService extends AbstractService {
     public Collection<Role> getNewPossibleRoles(Role executorRole, HttpServletRequest request)
     {
         Collection<Role> returnedValue = null;
-        Role affectedRole = null;//Role.getRole(request.getParameter(AFFECTED_ROLE_FIELD));
+        Role affectedRole = new Role(request.getParameter(AFFECTED_ROLE_FIELD));
         try
         {
             returnedValue = roleDao.getNewPossibleRoles(executorRole,affectedRole);

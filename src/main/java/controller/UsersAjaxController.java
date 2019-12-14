@@ -96,7 +96,7 @@ public class UsersAjaxController extends HttpServlet {
     {
         Map<String,Object> mapResponse = new HashMap<>();
         String pseudoAffectedUser = request.getParameter("pseudo");
-        Role newRole = Role.getRole(request.getParameter("newRole"));
+        Role newRole = new Role(request.getParameter("newRole"));
         mapResponse.put("feedback","ko");
         if( SecurityUtils.checkRequest(request) )
         {
@@ -107,11 +107,11 @@ public class UsersAjaxController extends HttpServlet {
                 {
                     executorUser.setRole(newRole);
                     mapResponse.put("currentUserUpdated", true );
+                    mapResponse.put("possibleActionsOnUser",roleService.getPossibleActions(executorUser.getRole(),newRole));
                 } else {
                     mapResponse.put("currentUserUpdated", false );
                 }
-                mapResponse.put("possibleActionsOnUser",roleService.getPossibleActions(executorUser.getRole(),newRole));
-            } else
+        } else
             {
                 mapResponse.put("error",userManagementService.getErrors().get("error"));
             }

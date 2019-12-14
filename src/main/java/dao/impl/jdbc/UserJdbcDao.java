@@ -48,9 +48,7 @@ public class UserJdbcDao extends JdbcDAO<User> implements UserDao {
                 u.setPassword(rs.getString("password"));
                 u.setRegisterDate(rs.getDate("date_inscription"));
                 u.setLogged( rs.getBoolean("logged"));
-                Role r = new Role();
-                r.setCode( rs.getString("code"));
-                r.setDescription( rs.getString("description"));
+                Role r = new Role( rs.getString("code"), rs.getString("description"));
                 u.setRole(r);
                 return u;
             }
