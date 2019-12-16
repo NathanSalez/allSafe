@@ -3,6 +3,7 @@ var urlRolesController = "";
 var urlUsersController ="";
 var selectRolesDOM = undefined;
 var dataTableDOM = undefined;
+// todo : remove deprecated jquery function
 $(document).ready(function() {
     urlUsersController = $("#urlUsers").val();
     urlRolesController = $("#urlRoles").val();
@@ -32,7 +33,7 @@ $(document).ready(function() {
                             for( var i=0; i < response.newPossibleRoles.length ;i++)
                             {
                                 var newRole = response.newPossibleRoles[i];
-                                var currentOption = new Option(newRole.description,newRole.name);
+                                var currentOption = new Option(newRole.code,newRole.code);
                                 selectRolesDOM.append(currentOption);
                             }
                         }

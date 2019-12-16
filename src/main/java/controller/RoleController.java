@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import config.InitialisationDaoFactory;
 import dao.DAOFactory;
 import dao.RoleDao;
-import json.RoleSerializer;
 import model.Role;
 import model.User;
 import service.RoleService;
@@ -62,8 +61,6 @@ public class RoleController extends HttpServlet {
     private String doGetPossibleNewRoles(HttpServletRequest request)
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        RoleSerializer roleSerializer = new RoleSerializer();
-        gsonBuilder.registerTypeAdapter(Role.class, roleSerializer);
         Map<String,Object> mapResponse = new HashMap<>();
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute(USER_SESSION_FIELD);

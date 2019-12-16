@@ -32,8 +32,7 @@ public class RoleJdbcDao extends JdbcDAO<Role> implements RoleDao {
             @Override
             public Role map(ResultSet rs) throws SQLException {
                 Role r = new Role();
-                r.setCode( rs.getString("code"));
-                r.setDescription( rs.getString("description"));
+                r.setCode( rs.getString("newRole"));
                 return r;
             }
         };

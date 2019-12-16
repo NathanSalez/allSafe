@@ -45,7 +45,7 @@ TODO : users can search user by their name, role, register date, state with jque
                     <td>${user.id}</td>
                     <td class="allsafe-pseudo">${user.pseudo}</td>
                     <td>***********</td>
-                    <td class="allsafe-role">${user.role}</td>
+                    <td class="allsafe-role">${user.role.code}</td>
                     <td>${user.registerDate}</td>
                     <td><span class="badge
                         <c:choose>
